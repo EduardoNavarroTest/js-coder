@@ -2,14 +2,8 @@ body {
     background-color: white;
 }
 
-.logo {
-    width: 52x;
-    height: auto;
-}
-
 .contenido {
     text-align: center;
-    color: #fff;
     margin: 30px;
 }
 

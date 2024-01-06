@@ -1,9 +1,7 @@
 
-
-pedirDatos();
-
-
-
+function principal(){
+    pedirDatos();
+}
 
 /*
 *Función para pedir datos por medio de los prompt
