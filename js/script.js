@@ -1,5 +1,7 @@
-
-function principal(){
+/*
+* Función inicial que es llamada en el botón del HTML
+*/
+function principal() {
     pedirDatos();
 }
 
@@ -24,23 +26,35 @@ function pedirDatos() {
     }
 
     alert("¡Bienvenido! " + nombre + " " + apellido);
-    auto = validarPrompt("Por favor, seleccione el auto a rentar: \n 1. Toyota Corolla  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla ");
+    auto = validarPrompt("Por favor, seleccione el auto a rentar: \n 1. MCLAREN  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla \n 5. ferrari \n 6. mercedes benz \n 7. BMW M8 GTR \n 8. BUCATI \n 9. LAMBORGHINI \n 10. DODGE CHALLENGER");
 
     //Reemplazar más adelante por un switch
     if (auto == 1) {
-        alert("Toyota Corolla: Calidad y elegancia");
+        alert("MCALREN: Calidad y elegancia");
     } else if (auto == 2) {
         alert("Chevrolet Camaro: Potente rendimiento en carretera");
     } else if (auto == 3) {
         alert("Ford Mustan: Estilo y confort");
     } else if (auto == 4) {
         alert("Tesla: Una mirada hacia el futuro");
+    } else if (auto == 5) {
+        alert("ferrari: Una mirada hacia el futuro");
+    } else if (auto == 6) {
+        alert("mercedes benz: Una mirada hacia el futuro")
+    } else if (auto == 7) {
+        alert("BMW M8 GTR: Una mirada hacia el futuro")
+    } else if (auto == 8) {
+        alert("BUCATI : Una mirada hacia el futuro")
+    } else if (auto == 9) {
+        alert("LAMBORGHINI: Una mirada hacia el futuro")
+    } else if (auto == 10) {
+        alert("DODGE CHALLENGER: Una mirada hacia el futuro")
     } else {
         alert("No seleccionó una opción válida, vuelva a realizar el proceso. Adios :( ")
         return;
     }
 
-    diasRentar = validarPrompt("Por favor, ingrese la cantidad de días a rentar:")
+    diasRentar = validarPrompt("Por favor, ingrese la cantidad de días a rentar (valor por día 50USD):")
     valorDia = 50; //USD
     valorTotal = valorDia * diasRentar;
 
@@ -68,8 +82,13 @@ function validarPrompt(mensaje) {
 */
 function validarEdad(edad) {
     let esMayor = edad >= 18;
+    let esViejo = edad <= 80;
     if (!esMayor) {
         alert("Lo sentimos, no tiene la edad suficiente para realizar esta operación");
+    }
+    if (!esViejo) {
+        alert("Lo sentimos, ustes es muy viejo para manejar");
+        esMayor = false;
     }
     return esMayor;
 }
