@@ -1,0 +1,4 @@
+Instrucciones:
+Para ejecutar el código JavaScript favor ingresar en la página principal (index.html) y dar click en el botón "Buscar disponibilidad"
+
+Agradezco informar si encuentras algún bug :)

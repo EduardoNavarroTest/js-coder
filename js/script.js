@@ -26,39 +26,67 @@ function pedirDatos() {
     }
 
     alert("¡Bienvenido! " + nombre + " " + apellido);
-    auto = validarPrompt("Por favor, seleccione el auto a rentar: \n 1. MCLAREN  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla \n 5. ferrari \n 6. mercedes benz \n 7. BMW M8 GTR \n 8. BUCATI \n 9. LAMBORGHINI \n 10. DODGE CHALLENGER");
+    auto = validarPrompt("Por favor, seleccione el número de la opción: \n 1. MCLAREN  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla \n 5. ferrari \n 6. mercedes benz \n 7. BMW M8 GTR \n 8. BUCATI \n 9. LAMBORGHINI \n 10. DODGE CHALLENGER");
 
-    //Reemplazar más adelante por un switch
-    if (auto == 1) {
-        alert("MCALREN: Calidad y elegancia");
-    } else if (auto == 2) {
-        alert("Chevrolet Camaro: Potente rendimiento en carretera");
-    } else if (auto == 3) {
-        alert("Ford Mustan: Estilo y confort");
-    } else if (auto == 4) {
-        alert("Tesla: Una mirada hacia el futuro");
-    } else if (auto == 5) {
-        alert("ferrari: Una mirada hacia el futuro");
-    } else if (auto == 6) {
-        alert("mercedes benz: Una mirada hacia el futuro")
-    } else if (auto == 7) {
-        alert("BMW M8 GTR: Una mirada hacia el futuro")
-    } else if (auto == 8) {
-        alert("BUCATI : Una mirada hacia el futuro")
-    } else if (auto == 9) {
-        alert("LAMBORGHINI: Una mirada hacia el futuro")
-    } else if (auto == 10) {
-        alert("DODGE CHALLENGER: Una mirada hacia el futuro")
-    } else {
-        alert("No seleccionó una opción válida, vuelva a realizar el proceso. Adios :( ")
-        return;
+    switch (parseInt(auto)) {
+        case 1:
+            alert("Opción seleccionada: MCALREN");
+            break;
+        case 2:
+            alert("Opción seleccionada: CHEVROLET CAMARO");
+            break;
+        case 3:
+            alert("Opción seleccionada: FORD MUSTANG");
+            break;
+        case 4:
+            alert("Opción seleccionada: TESLA");
+            break;
+        case 5:
+            alert("Opción seleccionada: FERRARI");
+            break;
+        case 6:
+            alert("Opción seleccionada: MERCEDES BENZ");
+            break;
+        case 7:
+            alert("Opción seleccionada: BMW M8 GTR");
+            break;
+        case 8:
+            alert("Opción seleccionada: BUCATI");
+            break;
+        case 9:
+            alert("Opción seleccionada: LAMBORGINI");
+            break;
+        case 10:
+            alert("Opción seleccionada: DOGE CHALLENGER");
+            break;
+        default:
+            alert("No seleccionó una opción válida, vuelva a realizar el proceso. Adios :( ")
+            return;
     }
 
-    diasRentar = validarPrompt("Por favor, ingrese la cantidad de días a rentar (valor por día 50USD):")
+    diasRentar = validarPrompt("Por favor, ingrese la cantidad de días a rentar:")
     valorDia = 50; //USD
-    valorTotal = valorDia * diasRentar;
+    valorDiaDescuento = 35 //USD Aplica a partir del quinto día
+    valorTotal = 0;
 
-    alert("El valor total a pagar es: " + valorTotal + " USD. Recuerda manejar con cuidado");
+
+    //El usuario tendrá descuento a partir del tercer día del alquiler
+    console.log("Factura de Renta # XXXXXX:");
+
+    for (let i=1; i<=diasRentar; i++){
+        if(i<5){
+            valorTotal+=valorDia;
+            console.log("Valor del día: " + i + " es de: " + valorDia + " USD");
+        }else{
+            valorTotal+=valorDiaDescuento;
+            console.log("Valor del día: " + i + " es de: " + valorDiaDescuento + " USD");
+        }
+        
+    }
+    console.log("***** TOTAL: " + valorTotal + " USD *****");
+    console.log("***** GRACIAS POR SU COMPRA *****");
+
+    alert("El valor total a pagar es: " + valorTotal + " USD. Gracias por elegirnos.");
 
 
 }
@@ -81,14 +109,16 @@ function validarPrompt(mensaje) {
 * retorna un valor booleano con la respuesta
 */
 function validarEdad(edad) {
-    let esMayor = edad >= 18;
-    let esViejo = edad <= 80;
-    if (!esMayor) {
+    let edadMinima = 18;
+    let edadMaxima = 80;
+    let puedeConducir = false;
+
+    if (edad < edadMinima) {
         alert("Lo sentimos, no tiene la edad suficiente para realizar esta operación");
+    } else if (edad > edadMaxima) {
+        alert("Lo sentimos, no podemos rentar autos por su edad");
+    } else {
+        puedeConducir = true; //Variable booleana solo cambia a true si cuenta con la edad estipualda 
     }
-    if (!esViejo) {
-        alert("Lo sentimos, ustes es muy viejo para manejar");
-        esMayor = false;
-    }
-    return esMayor;
+    return puedeConducir;
 }
