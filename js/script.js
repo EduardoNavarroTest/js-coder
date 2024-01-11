@@ -5,6 +5,7 @@ function principal() {
     pedirDatos();
 }
 
+
 /*
 *Función para pedir datos por medio de los prompt
 */
@@ -26,7 +27,7 @@ function pedirDatos() {
     }
 
     alert("¡Bienvenido! " + nombre + " " + apellido);
-    auto = validarPrompt("Por favor, seleccione el número de la opción: \n 1. MCLAREN  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla \n 5. ferrari \n 6. mercedes benz \n 7. BMW M8 GTR \n 8. BUCATI \n 9. LAMBORGHINI \n 10. DODGE CHALLENGER");
+    auto = validarPrompt("Por favor, seleccione el número de la opción: \n 1. Mclaren  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla \n 5. Ferrari \n 6. Mercedes Benz \n 7. BMW \n 8. Bucati \n 9. Lamborgini");
 
     switch (parseInt(auto)) {
         case 1:
@@ -56,9 +57,6 @@ function pedirDatos() {
         case 9:
             alert("Opción seleccionada: LAMBORGINI");
             break;
-        case 10:
-            alert("Opción seleccionada: DOGE CHALLENGER");
-            break;
         default:
             alert("No seleccionó una opción válida, vuelva a realizar el proceso. Adios :( ")
             return;
@@ -66,11 +64,11 @@ function pedirDatos() {
 
     diasRentar = validarPrompt("Por favor, ingrese la cantidad de días a rentar:")
     valorDia = 50; //USD
-    valorDiaDescuento = 35 //USD Aplica a partir del quinto día
+    valorDiaDescuento = 35 //USD Descuento aplica a partir del quinto día
     valorTotal = 0;
 
 
-    //El usuario tendrá descuento a partir del tercer día del alquiler
+    //El usuario tendrá descuento a partir del quinto día del alquiler
     console.log("Factura de Renta # XXXXXX:");
 
     for (let i=1; i<=diasRentar; i++){
@@ -91,6 +89,7 @@ function pedirDatos() {
 
 }
 
+
 /*
 * Función para validar que lo ingresado en el prompt no sea un valor nulo o en blanco
 */
@@ -103,6 +102,7 @@ function validarPrompt(mensaje) {
     } while (!valor || valor.trim() === '');
     return valor;
 }
+
 
 /* 
 * Función para validar si un usuario es mayor de edad
