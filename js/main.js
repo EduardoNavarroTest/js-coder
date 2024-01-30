@@ -1,93 +1,83 @@
-/*
-* Función inicial que es llamada en el botón del HTML
-*/
-function principal() {
-    pedirDatos();
-}
+function main() {
+    alert("¡Bienvenidos a RentiAutos! \nTu mejor opción para renta de coches y motos de lujo");
 
+    const opcionTipoVehiculo = seleccionarTipoVehiculo();
 
-/*
-*Función para pedir datos por medio de los prompt
-*/
-function pedirDatos() {
-
-    /* Declaración de variables */
-    let nombre, apellido, edad, esMayor, auto, diasRentar, valorDia, valorTotal;
-
-
-    nombre = validarPrompt("Por favor, ingresa tu nombre:");
-    apellido = validarPrompt("Por favor, ingresa tu apellido:");
-    edad = parseInt(validarPrompt("Por favor, ingresa tu edad:"));
-    esMayor = validarEdad(edad);
-
-
-    //Si el usuario no es mayor de edad, se sale de la aplicación
-    if (!esMayor) {
-        return;
-    }
-
-    alert("¡Bienvenido! " + nombre + " " + apellido);
-    auto = validarPrompt("Por favor, seleccione el número de la opción: \n 1. Mclaren  \n 2. Chevrolet Camaro  \n 3. Ford Mustang  \n 4. Tesla \n 5. Ferrari \n 6. Mercedes Benz \n 7. BMW \n 8. Bucati \n 9. Lamborgini");
-
-    switch (parseInt(auto)) {
+    switch (opcionTipoVehiculo) {
         case 1:
-            alert("Opción seleccionada: MCALREN");
+            tipoVehiculo = "Auto";
             break;
         case 2:
-            alert("Opción seleccionada: CHEVROLET CAMARO");
+            tipoVehiculo = "Moto";
             break;
         case 3:
-            alert("Opción seleccionada: FORD MUSTANG");
-            break;
-        case 4:
-            alert("Opción seleccionada: TESLA");
-            break;
-        case 5:
-            alert("Opción seleccionada: FERRARI");
-            break;
-        case 6:
-            alert("Opción seleccionada: MERCEDES BENZ");
-            break;
-        case 7:
-            alert("Opción seleccionada: BMW M8 GTR");
-            break;
-        case 8:
-            alert("Opción seleccionada: BUCATI");
-            break;
-        case 9:
-            alert("Opción seleccionada: LAMBORGINI");
-            break;
-        default:
-            alert("No seleccionó una opción válida, vuelva a realizar el proceso. Adios :( ")
+            alert("Gracias por su visita");
             return;
     }
 
-    diasRentar = validarPrompt("Por favor, ingrese la cantidad de días a rentar:")
-    valorDia = 50; //USD
-    valorDiaDescuento = 35 //USD Descuento aplica a partir del quinto día
-    valorTotal = 0;
+    const filtroVehiculo = obtenerVehiculosPorTipo(tipoVehiculo);
 
+    const carrito = new Carrito();
+    let opcionSeguir;
+    do {
+        const vehiculoSeleccionado = seleccionarVehiculo(filtroVehiculo);
+        const diasARentar = parseInt(validarPrompt("Ingrese la cantidad de días a rentar"));
+        carrito.agregarVehiculo(vehiculoSeleccionado.id, diasARentar);
 
-    //El usuario tendrá descuento a partir del quinto día del alquiler
-    console.log("Factura de Renta # XXXXXX:");
+        do {
+        opcionSeguir = parseInt(validarPrompt("0 - Finalizar compra \n1 - Rentar otro vehículo"));
+        } while(opcionSeguir!==0 && opcionSeguir!==1);
 
-    for (let i=1; i<=diasRentar; i++){
-        if(i<5){
-            valorTotal+=valorDia;
-            console.log("Valor del día: " + i + " es de: " + valorDia + " USD");
-        }else{
-            valorTotal+=valorDiaDescuento;
-            console.log("Valor del día: " + i + " es de: " + valorDiaDescuento + " USD");
+        if(opcionSeguir === 0){
+            break;
         }
-        
-    }
-    console.log("***** TOTAL: " + valorTotal + " USD *****");
-    console.log("***** GRACIAS POR SU COMPRA *****");
 
-    alert("El valor total a pagar es: " + valorTotal + " USD. Gracias por elegirnos.");
+    } while (opcionSeguir==1);
+
+    alert("Generando su factura...")
+    const totalAPagar = carrito.totalPago();
+
+    console.log(carrito.listarCarrito())
+    console.log(`Total a pagar es de: ${totalAPagar}`);
+}
+
+/**
+ * Función para validar la respuesta del usuario ante la pregunda de qué tipo de vehículo va a rentar
+ * Las salidas válidas son 1, 2 y 3
+ */
+function seleccionarTipoVehiculo() {
+    let opcionSeleccionada;
+    do {
+        opcionSeleccionada = parseInt(validarPrompt("Digite una opción: \n1. Autos \n2. Motos \n3. Salir"));
+    } while (opcionSeleccionada !== 1 && opcionSeleccionada !== 2 && opcionSeleccionada !== 3);
+    return opcionSeleccionada;
+}
+
+
+
+/*
+*Función para pedir datos del usuario por medio de los prompt y almacenarlos en variables, para luego crear un objeto Usuario con los datos.
+*/
+function datosRegistroUsuario() {
+
+    /* Declaración de variables */
+    let id, nombre, apellido, correo, telefono, edad, direccion, diasRentar, valorDia, valorTotal;
+
+    id = validarPrompt("Ingrese su identificación:");
+    nombre = validarPrompt("Ingrese su nombre:");
+    apellido = validarPrompt("Ingrese sus apellidos:");
+    correo = validarPrompt("Ingrese su email:");
+    telefono = validarPrompt("Ingrese su teléfono de contacto:");
+    edad = parseInt(validarPrompt("Ingrese su edad:"));
+    direccion = validarPrompt("Ingrese su dirección:");
+    crearUsuario(id, nombre, apellido, correo, telefono, edad, direccion);
+    return id;
 
 
 }
+
+
+
 
 
 /*
@@ -111,14 +101,51 @@ function validarPrompt(mensaje) {
 function validarEdad(edad) {
     let edadMinima = 18;
     let edadMaxima = 80;
-    let puedeConducir = false;
-
-    if (edad < edadMinima) {
-        alert("Lo sentimos, no tiene la edad suficiente para realizar esta operación");
-    } else if (edad > edadMaxima) {
-        alert("Lo sentimos, no podemos rentar autos por su edad");
-    } else {
-        puedeConducir = true; //Variable booleana solo cambia a true si cuenta con la edad estipualda 
+    let puedeConducir = true;
+    if (edad < edadMinima || edad > edadMaxima) {
+        alert("Lo sentimos, no tiene la edad adecuada para conducir un vehículo");
+        puedeConducir = false;
     }
     return puedeConducir;
 }
+
+
+
+/** Retorna array de objetos con el tipo de vehiculo seleccionado */
+function obtenerVehiculosPorTipo(tipoVehiculo) {
+    return vehiculos.filter(item => item.tipo === tipoVehiculo);
+}
+
+function seleccionarVehiculo(filtroVehiculo) {
+    let itemSeleccionado;
+    do {
+        itemSeleccionado = parseInt(validarPrompt("Elija su vehículo (0 - Salir) \n\n" + mostrarVehiculosDisponibles(filtroVehiculo)));
+        if (itemSeleccionado === 0) {
+            alert("Generando factura....");
+            break;
+        }
+
+        const vehiculoSeleccionado = filtroVehiculo.find(item => item.id === itemSeleccionado);
+        if (vehiculoSeleccionado) {
+            alert("Opción seleccionada: " + vehiculoSeleccionado.marca + " " + vehiculoSeleccionado.modelo);
+            return vehiculoSeleccionado;
+        } else {
+            alert("Opción no válida, intente de nuevo");
+        }
+    } while (itemSeleccionado !== 0);
+}
+
+function mostrarVehiculosDisponibles(filtroVehiculo) {
+    let salida = "";
+    filtroVehiculo.forEach(vehiculo => {
+        salida += `${vehiculo.id} - ${vehiculo.marca} ${vehiculo.modelo} - Precio: ${vehiculo.precio} \n`;
+    });
+    return salida;
+}
+
+
+/** Funciones que por ahora no uso pero usaré más adelante cuando esté trabajando con el DOM */
+
+/* Verificar la opción 0 cuando se listan los productos */
+
+/** Optimizar el doble do while */

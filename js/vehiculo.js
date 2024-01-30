@@ -12,9 +12,9 @@ class Vehiculo {
         this.disponible = true;
     }
 
-    modificarDisponibilidad = (disponible) => {
-        this.disponible = true
-    }
+    /* Habilita o deshabilita la disponibilidad del vehículo de acuerdo al parámetro recibido */
+    modificarDisponibilidad = (disponible) => this.disponible = disponible;
+    
 
 }
 
@@ -22,7 +22,7 @@ class Vehiculo {
 const vehiculos = [];
 
 /**
- * Función con los datos iniciales que se utilizarán para crear los objetos
+ * Función con los datos iniciales que se utilizarán para crear los objetos (Base de datos de autos y motos)
  */
 function crearObjetoVehiculo() {
 
@@ -33,15 +33,15 @@ function crearObjetoVehiculo() {
     crearVehiculo(4, "Auto", "Chevrolet", "Camaro", "Blanco", "2021", "Diseño y calidad", 300);
     crearVehiculo(5, "Auto", "Ferrari", "488", "Rojo", "2019", "Elegancia y estilo", 270);
     crearVehiculo(6, "Auto", "Tesla", "S", "Blanco", "2010", "Eficiencia de combustible y la confiabilidad", 95);
-    crearVehiculo(7, "Auto", "Lamborhini", "PENDIENTE", "Blanco", "2024", "Seguridad al instante", 125);
-    crearVehiculo(8, "Auto", "Bucati", "PENDIENTE", "Blanco", "2023", "Eficiencia de combustible y la confiabilidad", 75);
-    crearVehiculo(9, "Auto", "Mclaren", "PENDIENTE", "Blanco", "2022", "Elegancia y estilo", 175);
+    crearVehiculo(7, "Auto", "Lamborghini", "Veneno", "Blanco", "2024", "Seguridad al instante", 125);
+    crearVehiculo(8, "Auto", "Buggati", "Veyron", "Blanco", "2023", "Eficiencia de combustible y la confiabilidad", 75);
+    crearVehiculo(9, "Auto", "Mclaren", "650S", "Blanco", "2022", "Elegancia y estilo", 175);
 
 
     /*MOTOS*/
     crearVehiculo(10, "Moto", "Yamaha", "R6", "Blanco", "2024", "Rapidez al instante", 75);
     crearVehiculo(11, "Moto", "Kawasaki", "Nija H2R", "Blanco", "2019", "Confort y elegancia", 95);
-    crearVehiculo(12, "Moto", "Ducati", "PENDIENTE", "Blanco", "2025", "Diseño y calidad", 125);
+    crearVehiculo(12, "Moto", "Ducati", "Scrambler ", "Blanco", "2025", "Diseño y calidad", 125);
     crearVehiculo(13, "Moto", "Yamaha", "MT 09", "Blanco", "2020", "Eficiencia de combustible", 100);
     crearVehiculo(14, "Moto", "Yamaha", "R1", "Blanco", "2017", "Rapidez al instante", 135);
     crearVehiculo(15, "Moto", "Yamaha", "MT 15", "Blanco", "2020", "Diseño y calidad", 95);
@@ -57,13 +57,18 @@ function crearVehiculo(id, tipo, marca, modelo, color, anio, descripcion, precio
 
 crearObjetoVehiculo();
 
-/*
-const inhabilitar = vehiculos.find(auto => auto.id = 10);
-
-if (inhabilitar){
-    inhabilitar.modificarDisponibilidad(false);
-}
+/**
+* Función que consulta la existencia de un vehiculo y luego invoca a un método de la clase para modificar la disponibilidad 
 */
+const modificarDisponibilidadVehiculo = (id, esDisponible) => {
+    const vehiculoEncontrado = vehiculos.find((vehiculo) => vehiculo.id == id);
+    if (vehiculoEncontrado) {
+        vehiculoEncontrado.modificarDisponibilidad(esDisponible);
+    }
 
-console.log(vehiculos);
+};
+
+// console.log(vehiculos);
+// modificarDisponibilidadVehiculo(3, false);
+// console.log(vehiculos.find((item) => item.id == 3));
 

@@ -1,5 +1,5 @@
 class Usuario {
-    constructor(id, nombre, apellido, correo, telefono, edad, direccion, test) {
+    constructor(id, nombre, apellido, correo, telefono, edad, direccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -12,21 +12,14 @@ class Usuario {
 
     activarUsuario = () =>
         this.activo = true;
+
+    obtenerInformacion() {
+        console.log(`ID: ${this.id}, Nombre: ${this.nombre} ${this.apellido}, Correo: ${this.correo}, Edad: ${this.edad}, Activo: ${this.activo ? 'Sí' : 'No'}`);
+    }
 }
 
 /* Variables Globales */
 const usuarios = [];
-
-/**
- * Función con los datos iniciales que se utilizarán para crear los objetos
- */
-function crearUsuarioDefault() {
-
-    /* Usuario default para pruebas */
-    crearUsuario(1052988, "Eduardo", "Navarro", "eduardonavarro.test@gmail.com", "3002918447", 99, "Cartagena - Colombia");
-   
-}
-
 
 /**
  * Función que por parámetros recibe los datos de los usuarios para luego instanciar los objetos y agregarlos todos a un array
@@ -38,5 +31,13 @@ function crearUsuario(id, nombre, apellido, correo, telefono, edad, direccion) {
 }
 
 
-crearUsuarioDefault();
-console.log(usuarios);
+
+/**
+ * Función para crear un usuario default
+ */
+// function crearUsuarioDefault() {
+
+//     /* Usuario default para pruebas */
+//     crearUsuario(1052988, "Eduardo", "Navarro", "eduardonavarro.test@gmail.com", "3002918447", 99, "Cartagena - Colombia");
+
+// }
