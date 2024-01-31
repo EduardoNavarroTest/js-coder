@@ -15,15 +15,12 @@ class Vehiculo {
     /* Habilita o deshabilita la disponibilidad del vehículo de acuerdo al parámetro recibido */
     modificarDisponibilidad = (disponible) => this.disponible = disponible;
     
-
 }
 
 /* Variables Globales */
 const vehiculos = [];
 
-/**
- * Función con los datos iniciales que se utilizarán para crear los objetos (Base de datos de autos y motos)
- */
+/* Función con los datos iniciales que se utilizarán para crear los objetos (Simulación de la base de datos de autos y motos) */
 function crearObjetoVehiculo() {
 
     /*CARROS*/
@@ -47,9 +44,7 @@ function crearObjetoVehiculo() {
     crearVehiculo(15, "Moto", "Yamaha", "MT 15", "Blanco", "2020", "Diseño y calidad", 95);
 }
 
-/**
- * Función que por parámetros recibe los datos de los vehículos para luego instanciar los objetos y agregarlos todos a un array
- */
+/* Función que por parámetros recibe los datos de los vehículos para luego instanciar los objetos y agregarlos cada uno a un array */
 function crearVehiculo(id, tipo, marca, modelo, color, anio, descripcion, precio) {
     const objVehiculo = new Vehiculo(id, tipo, marca, modelo, color, anio, descripcion, precio);
     vehiculos.push(objVehiculo);
@@ -57,18 +52,6 @@ function crearVehiculo(id, tipo, marca, modelo, color, anio, descripcion, precio
 
 crearObjetoVehiculo();
 
-/**
-* Función que consulta la existencia de un vehiculo y luego invoca a un método de la clase para modificar la disponibilidad 
-*/
-const modificarDisponibilidadVehiculo = (id, esDisponible) => {
-    const vehiculoEncontrado = vehiculos.find((vehiculo) => vehiculo.id == id);
-    if (vehiculoEncontrado) {
-        vehiculoEncontrado.modificarDisponibilidad(esDisponible);
-    }
 
-};
 
-// console.log(vehiculos);
-// modificarDisponibilidadVehiculo(3, false);
-// console.log(vehiculos.find((item) => item.id == 3));
 

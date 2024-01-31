@@ -1,3 +1,7 @@
+const botonBusqueda = document.querySelector("#btnStart");
+botonBusqueda.addEventListener("click", main);
+
+/* Función principal que se inicia al dar click en el botón del html */
 function main() {
     alert("¡Bienvenidos a RentiAutos! \nTu mejor opción para renta de coches y motos de lujo");
 
@@ -21,8 +25,8 @@ function main() {
     let opcionSeguir;
     do {
         const vehiculoSeleccionado = seleccionarVehiculo(filtroVehiculo);
-        const diasARentar = parseInt(validarPrompt("Ingrese la cantidad de días a rentar"));
-        carrito.agregarVehiculo(vehiculoSeleccionado.id, diasARentar);
+        const diasARentar = parseInt(validarPrompt("Ingrese la cantidad de días a rentar:"));
+        carrito.agregarVehiculo(vehiculoSeleccionado.id, diasARentar); //Agregar objeto de vehiculo al array del carrito
 
         do {
         opcionSeguir = parseInt(validarPrompt("0 - Finalizar compra \n1 - Rentar otro vehículo"));
@@ -35,54 +39,14 @@ function main() {
     } while (opcionSeguir==1);
 
     alert("Generando su factura...")
-    const totalAPagar = carrito.totalPago();
-
-    console.log(carrito.listarCarrito())
-    console.log(`Total a pagar es de: ${totalAPagar}`);
-}
-
-/**
- * Función para validar la respuesta del usuario ante la pregunda de qué tipo de vehículo va a rentar
- * Las salidas válidas son 1, 2 y 3
- */
-function seleccionarTipoVehiculo() {
-    let opcionSeleccionada;
-    do {
-        opcionSeleccionada = parseInt(validarPrompt("Digite una opción: \n1. Autos \n2. Motos \n3. Salir"));
-    } while (opcionSeleccionada !== 1 && opcionSeleccionada !== 2 && opcionSeleccionada !== 3);
-    return opcionSeleccionada;
-}
-
-
-
-/*
-*Función para pedir datos del usuario por medio de los prompt y almacenarlos en variables, para luego crear un objeto Usuario con los datos.
-*/
-function datosRegistroUsuario() {
-
-    /* Declaración de variables */
-    let id, nombre, apellido, correo, telefono, edad, direccion, diasRentar, valorDia, valorTotal;
-
-    id = validarPrompt("Ingrese su identificación:");
-    nombre = validarPrompt("Ingrese su nombre:");
-    apellido = validarPrompt("Ingrese sus apellidos:");
-    correo = validarPrompt("Ingrese su email:");
-    telefono = validarPrompt("Ingrese su teléfono de contacto:");
-    edad = parseInt(validarPrompt("Ingrese su edad:"));
-    direccion = validarPrompt("Ingrese su dirección:");
-    crearUsuario(id, nombre, apellido, correo, telefono, edad, direccion);
-    return id;
-
+    const total = carrito.totalPagar();
+    const detalleFactura = carrito.listarCarrito();
+    console.log(`Detalle de la factura \n${detalleFactura} \nTotal a pagar ${total} USD`);
+    alert(`Detalle de la factura \n${detalleFactura} \nTotal a pagar ${total} USD`);
 
 }
 
-
-
-
-
-/*
-* Función para validar que lo ingresado en el prompt no sea un valor nulo o en blanco
-*/
+/* Función para validar que lo ingresado en el prompt no sea un valor nulo o en blanco */
 function validarPrompt(mensaje) {
     let valor;
 
@@ -93,48 +57,36 @@ function validarPrompt(mensaje) {
     return valor;
 }
 
-
-/* 
-* Función para validar si un usuario es mayor de edad
-* retorna un valor booleano con la respuesta
-*/
-function validarEdad(edad) {
-    let edadMinima = 18;
-    let edadMaxima = 80;
-    let puedeConducir = true;
-    if (edad < edadMinima || edad > edadMaxima) {
-        alert("Lo sentimos, no tiene la edad adecuada para conducir un vehículo");
-        puedeConducir = false;
-    }
-    return puedeConducir;
+/* Función para validar la respuesta del usuario ante la pregunda acerca del tipo de vehículo que desea rentar. Salidas válidas 1, 2 y 3 */
+function seleccionarTipoVehiculo() {
+    let opcionSeleccionada;
+    do {
+        opcionSeleccionada = parseInt(validarPrompt("Digite una opción: \n1. Autos \n2. Motos \n3. Salir"));
+    } while (opcionSeleccionada !== 1 && opcionSeleccionada !== 2 && opcionSeleccionada !== 3);
+    return opcionSeleccionada;
 }
 
-
-
-/** Retorna array de objetos con el tipo de vehiculo seleccionado */
+/* Función que consulta y retorna un nuevo array de objetos con el tipo de vehiculo seleccionado */
 function obtenerVehiculosPorTipo(tipoVehiculo) {
     return vehiculos.filter(item => item.tipo === tipoVehiculo);
 }
 
+/* Función para listar y seleccionar por pantalla */
 function seleccionarVehiculo(filtroVehiculo) {
-    let itemSeleccionado;
+    let itemSeleccionado, vehiculoSeleccionado;
     do {
-        itemSeleccionado = parseInt(validarPrompt("Elija su vehículo (0 - Salir) \n\n" + mostrarVehiculosDisponibles(filtroVehiculo)));
-        if (itemSeleccionado === 0) {
-            alert("Generando factura....");
-            break;
-        }
-
-        const vehiculoSeleccionado = filtroVehiculo.find(item => item.id === itemSeleccionado);
+        itemSeleccionado = parseInt(validarPrompt("Elija su vehículo \n\n" + mostrarVehiculosDisponibles(filtroVehiculo)));
+        vehiculoSeleccionado = filtroVehiculo.find(item => item.id === itemSeleccionado);
         if (vehiculoSeleccionado) {
             alert("Opción seleccionada: " + vehiculoSeleccionado.marca + " " + vehiculoSeleccionado.modelo);
             return vehiculoSeleccionado;
         } else {
             alert("Opción no válida, intente de nuevo");
         }
-    } while (itemSeleccionado !== 0);
+    } while (!vehiculoSeleccionado);
 }
 
+/* Función para listar con un foreach los vehiculos del array */
 function mostrarVehiculosDisponibles(filtroVehiculo) {
     let salida = "";
     filtroVehiculo.forEach(vehiculo => {
@@ -144,8 +96,6 @@ function mostrarVehiculosDisponibles(filtroVehiculo) {
 }
 
 
-/** Funciones que por ahora no uso pero usaré más adelante cuando esté trabajando con el DOM */
 
-/* Verificar la opción 0 cuando se listan los productos */
 
-/** Optimizar el doble do while */
+

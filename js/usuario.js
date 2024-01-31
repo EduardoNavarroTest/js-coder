@@ -1,3 +1,5 @@
+/* Clase Usuario => Por el momento no se utiliza, se le dará uso cuando se trabaje con el DOM y reciba los datos por un formulario */
+
 class Usuario {
     constructor(id, nombre, apellido, correo, telefono, edad, direccion) {
         this.id = id;
@@ -21,9 +23,7 @@ class Usuario {
 /* Variables Globales */
 const usuarios = [];
 
-/**
- * Función que por parámetros recibe los datos de los usuarios para luego instanciar los objetos y agregarlos todos a un array
- */
+/* Función que por parámetros recibe los datos de los usuarios para luego instanciar los objetos y agregarlos todos a un array */
 function crearUsuario(id, nombre, apellido, correo, telefono, edad, direccion) {
     const objUsuario = new Usuario(id, nombre, apellido, correo, telefono, edad, direccion);
     objUsuario.activarUsuario();
@@ -32,12 +32,3 @@ function crearUsuario(id, nombre, apellido, correo, telefono, edad, direccion) {
 
 
 
-/**
- * Función para crear un usuario default
- */
-// function crearUsuarioDefault() {
-
-//     /* Usuario default para pruebas */
-//     crearUsuario(1052988, "Eduardo", "Navarro", "eduardonavarro.test@gmail.com", "3002918447", 99, "Cartagena - Colombia");
-
-// }
