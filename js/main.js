@@ -13,32 +13,30 @@ const buscarVehiculos = document.querySelector("#buscar");
 
 /* Eventos */
 document.addEventListener("DOMContentLoaded", function() {
-    cardsVehiculos("Auto");
+    cardsVehiculos(vehiculos); // Mostrar todos los vehículos al cargar la página
 });
-buscarVehiculos.addEventListener("input", filtrarVehiculos);
+buscarVehiculos.addEventListener("input", filtrarVehiculos); // Filtrar vehículos cuando se ingresa algo en el campo de búsqueda
 
-
-function filtrarVehiculos(){
+function filtrarVehiculos() {
     const cochesFiltrados = vehiculos.filter(vehiculo => vehiculo.tipo === "Auto" && vehiculo.marca.toLowerCase().includes(buscarVehiculos.value.toLowerCase()));
-    console.log(cochesFiltrados)
-    //Este nuevo array se manda a la función que crea allá en el html y luego allá lo recibe y le da el manejo adecuado
+    cardsVehiculos(cochesFiltrados); // Mostrar los vehículos filtrados
 }
 
+function cardsVehiculos(vehiculosMostrar) {
+    // Limpiar el contenedor de cards antes de mostrar los nuevos vehículos
+    cards.innerHTML = "";
 
-function cardsVehiculos(tipoVehiculo) {
-    const coches = vehiculos.filter(vehiculo => vehiculo.tipo === tipoVehiculo);
-
-    coches.forEach(coche => {
+    vehiculosMostrar.forEach(vehiculo => {
         const card = document.createElement("div");
-        card.classList.add("col");
+        card.classList.add("col", "mb-4");
 
         card.innerHTML = `
         <div class="card h-100">
             <img src="../img/mustang.png" class="card-img-top" alt="Mustang">
             <div class="card-body">
-                <h5 class="card-title text-center">${coche.marca} ${coche.modelo}</h5>
-                <p>Este vehículo puede ser tuyo los días que desees, puedes llevarlo por la suma de: ${coche.precio} USD por día</p>
-                <p class="text-center">${coche.descripcion}</p>
+                <h5 class="card-title text-center">${vehiculo.marca} ${vehiculo.modelo}</h5>
+                <p>Este vehículo puede ser tuyo los días que desees, puedes llevarlo por la suma de: ${vehiculo.precio} USD por día</p>
+                <p class="text-center">${vehiculo.descripcion}</p>
                 <a href="#" class="btn btn-primary">Reservar Ahora</a>
             </div>
         </div>
@@ -46,10 +44,7 @@ function cardsVehiculos(tipoVehiculo) {
 
         cards.appendChild(card);
     });
-
 }
-
-
 
 
 
