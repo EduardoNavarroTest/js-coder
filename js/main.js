@@ -1,9 +1,67 @@
-const botonBusqueda = document.querySelector("#btnStart");
-botonBusqueda.addEventListener("click", main);
+// //const btnBuscar = document.querySelector("#btnBuscar");
+// const inpVehiculos = document.querySelector("#buscar input")
+// const botonBusqueda = document.querySelector("#btnStart");
+// const inpVehiculosf = document.querySelector("#inpVehiculos");
+// botonBusqueda.addEventListener("click", main);
+// inpVehiculos.addEventListener("input", buscarProductos);
+// btnBuscar.addEventListener("click", main);
+/**POR QUE NO TOMA EL LISTENER PARA LAS OTRAS PÁGINAS ??? */
+
+/* Recuperar elementos del DOM */
+const cards = document.querySelector("#cards-container");
+const buscarVehiculos = document.querySelector("#buscar");
+
+/* Eventos */
+document.addEventListener("DOMContentLoaded", function() {
+    cardsVehiculos("Auto");
+});
+buscarVehiculos.addEventListener("input", filtrarVehiculos);
+
+
+function filtrarVehiculos(){
+    const cochesFiltrados = vehiculos.filter(vehiculo => vehiculo.tipo === "Auto" && vehiculo.marca.toLowerCase().includes(buscarVehiculos.value.toLowerCase()));
+    console.log(cochesFiltrados)
+    //Este nuevo array se manda a la función que crea allá en el html y luego allá lo recibe y le da el manejo adecuado
+}
+
+
+function cardsVehiculos(tipoVehiculo) {
+    const coches = vehiculos.filter(vehiculo => vehiculo.tipo === tipoVehiculo);
+
+    coches.forEach(coche => {
+        const card = document.createElement("div");
+        card.classList.add("col");
+
+        card.innerHTML = `
+        <div class="card h-100">
+            <img src="../img/mustang.png" class="card-img-top" alt="Mustang">
+            <div class="card-body">
+                <h5 class="card-title text-center">${coche.marca} ${coche.modelo}</h5>
+                <p>Este vehículo puede ser tuyo los días que desees, puedes llevarlo por la suma de: ${coche.precio} USD por día</p>
+                <p class="text-center">${coche.descripcion}</p>
+                <a href="#" class="btn btn-primary">Reservar Ahora</a>
+            </div>
+        </div>
+        `;
+
+        cards.appendChild(card);
+    });
+
+}
+
+
+
+
+
+
+
+function buscarProductos() {
+    alert("Esta vaina funcioan")
+}
 
 /* Función principal que se inicia al dar click en el botón del html */
 function main() {
-    alert("¡Bienvenidos a RentiAutos! \nTu mejor opción para renta de coches y motos de lujo");
+    alert(`¡Bienvenidos a RentiAutos! \nTu mejor opción para renta de coches y motos de lujo`);
 
     const opcionTipoVehiculo = seleccionarTipoVehiculo();
 
@@ -15,7 +73,7 @@ function main() {
             tipoVehiculo = "Moto";
             break;
         case 3:
-            alert("Gracias por su visita");
+            alert(`Gracias por su visita`);
             return;
     }
 
@@ -25,20 +83,20 @@ function main() {
     let opcionSeguir;
     do {
         const vehiculoSeleccionado = seleccionarVehiculo(filtroVehiculo);
-        const diasARentar = parseInt(validarPrompt("Ingrese la cantidad de días a rentar:"));
+        const diasARentar = parseInt(validarPrompt(`Ingrese la cantidad de días a rentar:`));
         carrito.agregarVehiculo(vehiculoSeleccionado.id, diasARentar); //Agregar objeto de vehiculo al array del carrito
 
         do {
-        opcionSeguir = parseInt(validarPrompt("0 - Finalizar compra \n1 - Rentar otro vehículo"));
-        } while(opcionSeguir!==0 && opcionSeguir!==1);
+            opcionSeguir = parseInt(validarPrompt(`0 - Finalizar compra \n1 - Rentar otro vehículo`));
+        } while (opcionSeguir !== 0 && opcionSeguir !== 1);
 
-        if(opcionSeguir === 0){
+        if (opcionSeguir === 0) {
             break;
         }
 
-    } while (opcionSeguir==1);
+    } while (opcionSeguir == 1);
 
-    alert("Generando su factura...")
+    alert(`Generando su factura...`)
     const total = carrito.totalPagar();
     const detalleFactura = carrito.listarCarrito();
     console.log(`Detalle de la factura \n${detalleFactura} \nTotal a pagar ${total} USD`);
@@ -61,7 +119,7 @@ function validarPrompt(mensaje) {
 function seleccionarTipoVehiculo() {
     let opcionSeleccionada;
     do {
-        opcionSeleccionada = parseInt(validarPrompt("Digite una opción: \n1. Autos \n2. Motos \n3. Salir"));
+        opcionSeleccionada = parseInt(validarPrompt(`Digite una opción: \n1. Autos \n2. Motos \n3. Salir`));
     } while (opcionSeleccionada !== 1 && opcionSeleccionada !== 2 && opcionSeleccionada !== 3);
     return opcionSeleccionada;
 }
@@ -75,13 +133,13 @@ function obtenerVehiculosPorTipo(tipoVehiculo) {
 function seleccionarVehiculo(filtroVehiculo) {
     let itemSeleccionado, vehiculoSeleccionado;
     do {
-        itemSeleccionado = parseInt(validarPrompt("Elija su vehículo \n\n" + mostrarVehiculosDisponibles(filtroVehiculo)));
+        itemSeleccionado = parseInt(validarPrompt(`Elija su vehículo \n\n ${mostrarVehiculosDisponibles(filtroVehiculo)}`));
         vehiculoSeleccionado = filtroVehiculo.find(item => item.id === itemSeleccionado);
         if (vehiculoSeleccionado) {
-            alert("Opción seleccionada: " + vehiculoSeleccionado.marca + " " + vehiculoSeleccionado.modelo);
+            alert(`Opción seleccionada: ${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`);
             return vehiculoSeleccionado;
         } else {
-            alert("Opción no válida, intente de nuevo");
+            alert(`Opción no válida, intente de nuevo`);
         }
     } while (!vehiculoSeleccionado);
 }

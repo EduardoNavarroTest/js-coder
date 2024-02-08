@@ -29,6 +29,3 @@ function crearUsuario(id, nombre, apellido, correo, telefono, edad, direccion) {
     objUsuario.activarUsuario();
     usuarios.push(objUsuario);
 }
-
-
-
