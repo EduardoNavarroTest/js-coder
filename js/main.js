@@ -221,17 +221,13 @@ function intervalAlert(time) {
 /* Función para recuperar la página actual logueada*/
 function obtenerPaginaActual() {
     const urlActual = window.location.href;
-    console.log(urlActual);
- 
-    if (urlActual.includes("index.html")) {
-        return "Auto";
-    }
- 
+    let tipo = "Auto"
+  
     if (urlActual.includes("motos.html")) {
-        return "Moto";
+        tipo = "Moto";
     }
  
-    return null;
+    return tipo;
 }
  
  
