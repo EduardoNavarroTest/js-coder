@@ -1,7 +1,5 @@
 /**
  * Es mejor que las cards se graben con el evento DOMContenetLoaded o se llama la función que las hace enseguida ?
- * Colocar imágenes en los objetos de los vehículos
- * Unificar las imágenes (del mismo tamaño todas)
  * Carrito de compras
  * Local Storage
  *
@@ -83,7 +81,7 @@ function crearCardsVehiculos(vehiculo) {
     card.innerHTML = `
     <div class="col mb-4">
         <div class="card h-100">
-            <img src="${vehiculo.imagen}" class="card-img-top" alt="${vehiculo.marca}" style="width: 100%; height: 200px; object-fit: cover;">
+            <img src="${vehiculo.imagen}" class="card-img-top" alt="${vehiculo.marca}">
             <div class="card-body">
                 <h5 class="card-title text-center">${vehiculo.marca} ${vehiculo.modelo}</h5>
                 <p>Este vehículo puede ser tuyo los días que desees, puedes llevarlo por la suma de: ${vehiculo.precio}

@@ -3,17 +3,13 @@ body {
 }
 
 
-.card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    
-}
+
 
 .card:hover {
-    transform: scale(1.05); /* Aumenta el tamaño al 105% */
-    transition: transform 0.3s ease; /* Agrega una transición suave */
+    transform: scale(1.05);
+    /* Aumenta el tamaño al 105% */
+    transition: transform 0.3s ease;
+    /* Agrega una transición suave */
 }
 
 header {
@@ -72,24 +68,29 @@ footer a:hover {
     height: 40px;
     border-radius: 50px;
     transition: all 0.4s;
-  }
-  
-  .back-to-top i {
+}
+
+.back-to-top i {
     font-size: 28px;
     color: #fff;
     line-height: 0;
-  }
-  
-  .back-to-top:hover {
+}
+
+.back-to-top:hover {
     background: #2eafec;
     color: #fff;
-  }
-  
-  .back-to-top.active {
+}
+
+.back-to-top.active {
     visibility: visible;
     opacity: 1;
-  }
+}
 
-  /*-----------------------------------------------------------
+/*-----------------------------------------------------------
 --------------------------------------------------------------*/
 
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
