@@ -24,7 +24,6 @@ const carrito = new Carrito();
 document.addEventListener("DOMContentLoaded", () => {
     mostrarVehiculosDisponibles();
     seleccionarVehiculo();
-    mostrarIconoCarrito();
 });
 
 //document.addEventListener("DOMContentLoaded", filtrarVehiculos);
@@ -46,7 +45,6 @@ function seleccionarVehiculo() {
             const veh = { id, dias }
             carrito.agregarVehiculo(id, dias);
             emergentToastify();
-            mostrarIconoCarrito();
             guardarCarritoLScarrito(veh)
         });
     });
@@ -60,7 +58,6 @@ iconCarrito.addEventListener('click', () => {
 eliminarCarrito.addEventListener("click", () => {
     alertSweetDelete();
     carrito.vaciarCarrito();
-    mostrarIconoCarrito();
     mostrarCarrito();
 
 });
@@ -131,14 +128,9 @@ function crearCardsVehiculos(vehiculo) {
     return card;
 }
 
-function mostrarIconoCarrito() {
-    //Solo muestra el icono del carrito si hay vehiculos agregados
-    iconCarrito.style.display = carrito.vehiculos.length === 0 ? "none" : "block";
-}
 
 function vaciarCarrito() {
     carrito.vaciarCarrito();
-    mostrarIconoCarrito();
 }
 
 function toggleCarrito() {
@@ -174,31 +166,7 @@ function mostrarCarrito() {
 
 
 
-/* Función de SweetAlert2 para simular timer  */
-function intervalAlert(time) {
-    let timerInterval;
-    Swal.fire({
-        title: "Espere...",
-        //html: "I will close in <b></b> milliseconds.",
-        timer: time,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading();
-            const timer = Swal.getPopup().querySelector("b");
-            timerInterval = setInterval(() => {
-                //timer.textContent = `${Swal.getTimerLeft()}`;
-            }, 100);
-        },
-        willClose: () => {
-            clearInterval(timerInterval);
-        }
-    }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-            console.log("I was closed by the timer");
-        }
-    });
-}
+
 
 /* Función para recuperar la página actual logueada*/
 function obtenerPaginaActual() {
@@ -315,14 +283,7 @@ function mostrarVehiculosDisponibles2(filtroVehiculo) {
 }
 
 /* Toastify */
-function emergentToastify() {
-    Toastify({
-        text: `Vehiculo agregado`,
-        duration: 2000,
-        close: true,
-        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-    }).showToast();
-}
+
 
 function guardarCarritoLScarrito() {
     carritoLS = JSON.stringify(carrito);
@@ -338,23 +299,3 @@ function renderizarCarrito() {
     guardarCarritoLocalStorage(carrito);
 }
 
-function alertSweetDelete() {
-    Swal.fire({
-        title: "¿Desea realizar esta operación?",
-        text: "Esto eliminará los vehiculos agregados al carrito de compra",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: "OK",
-                text: "Carrito vacíado",
-                icon: "success"
-            });
-        }
-    });
-}
