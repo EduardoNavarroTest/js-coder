@@ -1,5 +1,4 @@
 /**
- * librerias en archivos diferentes
  * ver que más se puede agregar a archivos diferntes
  * localStorage
  * otra pagina para finalizar
@@ -17,7 +16,7 @@ const carritoDiv = document.querySelector("#carrito");
 const finalizarCarrito = document.querySelector("#btnFinalizarOperacion");
 const eliminarCarrito = document.querySelector("#btnVaciarCarrito");
 
-const carrito = new Carrito();
+
 
 /* Eventos */
 
@@ -41,11 +40,10 @@ function seleccionarVehiculo() {
     btnReservar.forEach(button => {
         button.addEventListener('click', () => {
             const id = button.dataset.id;
-            const dias = 1;
-            const veh = { id, dias }
-            carrito.agregarVehiculo(id, dias);
+            const cantidad = 1;
+            const veh = { id, cantidad }
+            carrito.agregarVehiculo(id, cantidad);
             emergentToastify();
-            guardarCarritoLScarrito(veh)
         });
     });
 }
@@ -56,11 +54,14 @@ iconCarrito.addEventListener('click', () => {
 });
 
 eliminarCarrito.addEventListener("click", () => {
-    alertSweetDelete();
+    alertSweetDelete()
     carrito.vaciarCarrito();
     mostrarCarrito();
-
 });
+
+
+/* Instanciasr objetos */
+const carrito = new Carrito();
 
 
 /* Funciones */
@@ -134,7 +135,7 @@ function vaciarCarrito() {
 }
 
 function toggleCarrito() {
-    // Si el carrito está visible, ocúltalo; de lo contrario, muéstralo
+    // Si el listado carrito está visible, ocúltalo; de lo contrario, muéstralo
     if (carritoDiv.style.display === 'block') {
         carritoDiv.style.display = 'none';
     } else {
@@ -148,16 +149,16 @@ function mostrarCarrito() {
 
     listarCarrito.innerHTML = '';
 
-    carrito.vehiculos.forEach(item => {
+    carrito.vehiculosCarrito.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.id} - ${item.precio}`;
         listarCarrito.appendChild(li);
     });
     // Muestra el carrito si hay vehículos seleccionados
-    if (carrito.vehiculos.length > 0) {
-        document.getElementById('carrito').style.display = 'block';
+    if (carrito.vehiculosCarrito.length > 0) {
+        carritoDiv.style.display = 'block';
     } else {
-        document.getElementById('carrito').style.display = 'none';
+        carritoDiv.style.display = 'none';
     }
 }
 
@@ -281,21 +282,3 @@ function mostrarVehiculosDisponibles2(filtroVehiculo) {
     });
     return salida;
 }
-
-/* Toastify */
-
-
-function guardarCarritoLScarrito() {
-    carritoLS = JSON.stringify(carrito);
-    localStorage.setItem("vehiculos", carritoLS);
-}
-
-function recuperarCarritoLS() {
-    const vehiculosLS = localStorage.getItem("vehiculos");
-
-}
-
-function renderizarCarrito() {
-    guardarCarritoLocalStorage(carrito);
-}
-

@@ -1,52 +1,78 @@
 class Carrito {
     constructor() {
-        this.vehiculos = [];
+        this.vehiculosCarrito = this.recuperarLS();
         this.total = 0;
     }
 
-    agregarVehiculo(id, diasRentar) {
-
-        /* Si el vehículo existe, va al método sumarDias(), de lo contrario agrega el nuevo objeto al array */
+    /**
+    * Primero consulta por ID si el vehiculo ya existe en el carrito
+    * Si no existe, consulta por ID si el vehiculo existe en base de datos para agregarlo al carrito
+    */
+    agregarVehiculo(id, cantidad) {
         const idVehiculo = parseInt(id);
-        const existeVehiculo = this.vehiculos.some(item => item.id === idVehiculo);
-        if (!existeVehiculo) {
-            const vehiculo = vehiculos.find(item => item.id === idVehiculo);
+        if (!this.existeVehiculoCarrito(idVehiculo)) {
+            const vehiculo = this.existeVehiculoBaseDatos(idVehiculo);
             if (vehiculo) {
-                vehiculo.diasRentar = diasRentar;
-                this.vehiculos.push(vehiculo);
+                vehiculo.cantidad = cantidad;
+                this.vehiculosCarrito.push(vehiculo);
                 console.log(`Vehículo con id ${vehiculo.id} agregado con éxito`);
-            } else {
-                console.log(`Vehículo con id ${idVehiculo} NO existe`);
-            }
+                this.guardarLS(vehiculo.id, vehiculo.cantidad)
 
+            } else {
+                console.log(`Vehículo con id ${idVehiculo} NO existe en base de datos`);
+            }
         } else {
-            this.sumarDias(idVehiculo, diasRentar);
+            this.sumarDias(idVehiculo, cantidad);
         }
     }
 
     totalPagar() {
-        this.vehiculos.forEach(vehiculo => {
-            this.total += vehiculo.precio * vehiculo.diasRentar;
+        this.vehiculosCarrito.forEach(vehiculo => {
+            this.total += vehiculo.precio * vehiculo.cantidad;
         });
         return this.total;
     }
 
-    sumarDias(idVehiculo, diasRentar) {
-        const vehiculo = this.vehiculos.find(item => item.id === idVehiculo);
-        vehiculo.diasRentar += diasRentar;
+    sumarDias(idVehiculo, cantidad) {
+        const vehiculo = this.vehiculosCarrito.find(item => item.id === idVehiculo);
+        vehiculo.cantidad += cantidad;
         console.log(`Vehículo con id ${vehiculo.id} actualizado con éxito`);
+        this.guardarLS(vehiculo.id, vehiculo.cantidad);
     }
 
     listarCarrito() {
         let listadoCarrito = "";
-        this.vehiculos.forEach(item => {
+        this.vehiculosCarrito.forEach(item => {
             listadoCarrito += `\nID: ${item.id} - ${item.marca} ${item.modelo} - ${item.precio} USD * ${item.diasRentar} días = ${item.precio * item.diasRentar} USD`;
         });
         return listadoCarrito;
     }
 
-    vaciarCarrito(){
-        this.vehiculos = [];
+    vaciarCarrito() {
+        this.vehiculosCarrito = [];
         this.total = 0;
+        localStorage.removeItem("vehiculos");
     }
+
+    /** Local Storage */
+
+    guardarLS() {
+        localStorage.setItem("vehiculos", JSON.stringify(this.vehiculosCarrito));
+    }
+
+    recuperarLS() {
+        const vehiculosLS = localStorage.getItem("vehiculos");
+        return JSON.parse(vehiculosLS) || [];
+    }
+
+    existeVehiculoBaseDatos(id) {
+        return vehiculos.find(vehiculo => vehiculo.id === id);
+    }
+
+    existeVehiculoCarrito(id) {
+        return this.vehiculosCarrito.some(vehiculo => vehiculo.id === id);
+    }
+
+
+
 }
