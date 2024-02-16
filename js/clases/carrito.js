@@ -43,7 +43,7 @@ class Carrito {
     listarCarrito() {
         let listadoCarrito = "";
         this.vehiculosCarrito.forEach(item => {
-            listadoCarrito += `\nID: ${item.id} - ${item.marca} ${item.modelo} - ${item.precio} USD * ${item.diasRentar} días = ${item.precio * item.diasRentar} USD`;
+            listadoCarrito += `\nID: ${item.id} - ${item.marca} ${item.modelo} - ${item.precio} USD * ${item.cantidad} días = ${item.precio * item.cantidad} USD`;
         });
         return listadoCarrito;
     }

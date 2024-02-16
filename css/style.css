@@ -101,7 +101,7 @@ footer a:hover {
     
 }
 
-#carrito {
+#carritoContainer {
     position: fixed;
     top: 100px;
     right: 20px;
@@ -112,7 +112,7 @@ footer a:hover {
 }
 
 #carritoIcono:hover {
-    transform: scale(1.05);
+    transform: scale(1.01);
     /* Aumenta el tamaño al 105% */
     transition: transform 0.3s ease;
     /* Agrega una transición suave */

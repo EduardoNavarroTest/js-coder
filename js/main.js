@@ -1,18 +1,19 @@
 /**
- * ver que más se puede agregar a archivos diferntes
- * localStorage
- * otra pagina para finalizar
- * 
-*/
+ * PENDIENTES
+ * Estilizar vista rápida
+ * Agregar alert para el finalizado (A FUTURO ENVIARÁ A OTRA PÁGINA --- DONDE SE COLOCAN LOS DATOS DEL USUARIO)
+ * Arreglar página de motos
+ *  
+ */
 
-/* Recuperar elementos del DOM */
+/* Elementos del DOM */
 
 const cardsContainer = document.querySelector("#cardsContainer");
 const btnBuscar = document.querySelector("#btnSearch");
 const inputVehiculos = document.querySelector("#inputAutos");
 const listarCarrito = document.querySelector("#listarCarrito");
 const iconCarrito = document.querySelector("#carritoIcono");
-const carritoDiv = document.querySelector("#carrito");
+const carritoContainer = document.querySelector("#carritoContainer");
 const finalizarCarrito = document.querySelector("#btnFinalizarOperacion");
 const eliminarCarrito = document.querySelector("#btnVaciarCarrito");
 
@@ -21,11 +22,10 @@ const eliminarCarrito = document.querySelector("#btnVaciarCarrito");
 /* Eventos */
 
 document.addEventListener("DOMContentLoaded", () => {
-    mostrarVehiculosDisponibles();
+    mostrarVehiculosDisponibles(); //Cargar las cards de los vehiculos dependiendo de la página actual, a saber, Autos o Motos
     seleccionarVehiculo();
 });
 
-//document.addEventListener("DOMContentLoaded", filtrarVehiculos);
 btnBuscar.addEventListener("click", mostrarVehiculosDisponibles);
 
 inputVehiculos.addEventListener("keyup", function (event) {
@@ -34,16 +34,15 @@ inputVehiculos.addEventListener("keyup", function (event) {
     }
 });
 
-
 function seleccionarVehiculo() {
     const btnReservar = document.querySelectorAll(".reservar-btn");
     btnReservar.forEach(button => {
         button.addEventListener('click', () => {
             const id = button.dataset.id;
             const cantidad = 1;
-            const veh = { id, cantidad }
             carrito.agregarVehiculo(id, cantidad);
             emergentToastify();
+            // toggleCarrito(); Logica pendiente para averiguar si el carrito está abierto
         });
     });
 }
@@ -60,7 +59,7 @@ eliminarCarrito.addEventListener("click", () => {
 });
 
 
-/* Instanciasr objetos */
+/* Instanciar objetos */
 const carrito = new Carrito();
 
 
@@ -135,12 +134,7 @@ function vaciarCarrito() {
 }
 
 function toggleCarrito() {
-    // Si el listado carrito está visible, ocúltalo; de lo contrario, muéstralo
-    if (carritoDiv.style.display === 'block') {
-        carritoDiv.style.display = 'none';
-    } else {
-        mostrarCarrito();
-    }
+    carritoContainer.style.display == "block" ? carritoContainer.style.display = "none" : mostrarCarrito();
 }
 
 
@@ -148,37 +142,25 @@ function toggleCarrito() {
 function mostrarCarrito() {
 
     listarCarrito.innerHTML = '';
-
     carrito.vehiculosCarrito.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.id} - ${item.precio}`;
+        li.textContent = `${item.id} - ${item.marca} ${item.modelo} ${item.precio} USD x ${item.cantidad}`;
         listarCarrito.appendChild(li);
     });
-    // Muestra el carrito si hay vehículos seleccionados
-    if (carrito.vehiculosCarrito.length > 0) {
-        carritoDiv.style.display = 'block';
-    } else {
-        carritoDiv.style.display = 'none';
-    }
+
+    carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
 }
-
-
-
-
-
-
 
 
 /* Función para recuperar la página actual logueada*/
 function obtenerPaginaActual() {
     const urlActual = window.location.href;
-    let tipo = "Auto"
 
     if (urlActual.includes("motos.html")) {
-        tipo = "Moto";
+        return "Moto";
     }
 
-    return tipo;
+    return "Auto";
 }
 
 
@@ -188,97 +170,3 @@ function obtenerPaginaActual() {
 
 
 
-
-/* Función principal que se inicia al dar click en el botón del html */
-function main() {
-    alert(`¡Bienvenidos a RentiAutos! \nTu mejor opción para renta de coches y motos de lujo`);
-
-    const opcionTipoVehiculo = seleccionarTipoVehiculo();
-
-    switch (opcionTipoVehiculo) {
-        case 1:
-            tipoVehiculo = "Auto";
-            break;
-        case 2:
-            tipoVehiculo = "Moto";
-            break;
-        case 3:
-            alert(`Gracias por su visita`);
-            return;
-    }
-
-    const filtroVehiculo = obtenerVehiculosPorTipo(tipoVehiculo);
-
-    const carrito = new Carrito();
-    let opcionSeguir;
-    do {
-        const vehiculoSeleccionado = seleccionarVehiculo(filtroVehiculo);
-        const diasARentar = parseInt(validarPrompt(`Ingrese la cantidad de días a rentar:`));
-        carrito.agregarVehiculo(vehiculoSeleccionado.id, diasARentar); //Agregar objeto de vehiculo al array del carrito
-
-        do {
-            opcionSeguir = parseInt(validarPrompt(`0 - Finalizar compra \n1 - Rentar otro vehículo`));
-        } while (opcionSeguir !== 0 && opcionSeguir !== 1);
-
-        if (opcionSeguir === 0) {
-            break;
-        }
-
-    } while (opcionSeguir == 1);
-
-    alert(`Generando su factura...`)
-    const total = carrito.totalPagar();
-    const detalleFactura = carrito.listarCarrito();
-    console.log(`Detalle de la factura \n${detalleFactura} \nTotal a pagar ${total} USD`);
-    alert(`Detalle de la factura \n${detalleFactura} \nTotal a pagar ${total} USD`);
-
-}
-
-/* Función para validar que lo ingresado en el prompt no sea un valor nulo o en blanco */
-function validarPrompt(mensaje) {
-    let valor;
-
-    //Ciclo do-while para controlar que el usuario digite información en los prompt
-    do {
-        valor = prompt(mensaje);
-    } while (!valor || valor.trim() === '');
-    return valor;
-}
-
-/* Función para validar la respuesta del usuario ante la pregunda acerca del tipo de vehículo que desea rentar. Salidas válidas 1, 2 y 3 */
-function seleccionarTipoVehiculo() {
-    let opcionSeleccionada;
-    do {
-        opcionSeleccionada = parseInt(validarPrompt(`Digite una opción: \n1. Autos \n2. Motos \n3. Salir`));
-    } while (opcionSeleccionada !== 1 && opcionSeleccionada !== 2 && opcionSeleccionada !== 3);
-    return opcionSeleccionada;
-}
-
-/* Función que consulta y retorna un nuevo array de objetos con el tipo de vehiculo seleccionado */
-function obtenerVehiculosPorTipo(tipoVehiculo) {
-    return vehiculos.filter(item => item.tipo === tipoVehiculo);
-}
-
-/* Función para listar y seleccionar por pantalla */
-function seleccionarVehiculo2(filtroVehiculo) {
-    let itemSeleccionado, vehiculoSeleccionado;
-    do {
-        itemSeleccionado = parseInt(validarPrompt(`Elija su vehículo \n\n ${mostrarVehiculosDisponibles(filtroVehiculo)}`));
-        vehiculoSeleccionado = filtroVehiculo.find(item => item.id === itemSeleccionado);
-        if (vehiculoSeleccionado) {
-            alert(`Opción seleccionada: ${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`);
-            return vehiculoSeleccionado;
-        } else {
-            alert(`Opción no válida, intente de nuevo`);
-        }
-    } while (!vehiculoSeleccionado);
-}
-
-/* Función para listar con un foreach los vehiculos del array */
-function mostrarVehiculosDisponibles2(filtroVehiculo) {
-    let salida = "";
-    filtroVehiculo.forEach(vehiculo => {
-        salida += `${vehiculo.id} - ${vehiculo.marca} ${vehiculo.modelo} - Precio: ${vehiculo.precio} \n`;
-    });
-    return salida;
-}
