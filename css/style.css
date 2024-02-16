@@ -94,11 +94,11 @@ footer a:hover {
 
 
 #carritoIcono {
-    font-size: 30px; 
+    font-size: 30px;
     cursor: pointer;
     color: white !important;
     display: block;
-    
+
 }
 
 #carritoContainer {
@@ -118,7 +118,15 @@ footer a:hover {
     /* Agrega una transición suave */
 }
 
-.btnAccionCarts{
+.btnAccionCarts {
     display: flex;
     justify-content: space-evenly;
+}
+
+.construction {
+    display: flex;
+    justify-content: center;
+    font-size: 100px;
+    color: orange !important;
+
 }

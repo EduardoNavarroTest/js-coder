@@ -14,8 +14,8 @@ const inputVehiculos = document.querySelector("#inputAutos");
 const listarCarrito = document.querySelector("#listarCarrito");
 const iconCarrito = document.querySelector("#carritoIcono");
 const carritoContainer = document.querySelector("#carritoContainer");
-const finalizarCarrito = document.querySelector("#btnFinalizarOperacion");
-const eliminarCarrito = document.querySelector("#btnVaciarCarrito");
+const btnFinalizarCarrito = document.querySelector("#btnFinalizarOperacion");
+const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
 
 
 
@@ -52,7 +52,7 @@ iconCarrito.addEventListener('click', () => {
     toggleCarrito();
 });
 
-eliminarCarrito.addEventListener("click", () => {
+btnEliminarCarrito.addEventListener("click", () => {
     alertSweetDelete()
     carrito.vaciarCarrito();
     mostrarCarrito();
@@ -138,7 +138,6 @@ function toggleCarrito() {
 }
 
 
-
 function mostrarCarrito() {
 
     listarCarrito.innerHTML = '';
@@ -162,11 +161,3 @@ function obtenerPaginaActual() {
 
     return "Auto";
 }
-
-
-
-
-
-
-
-
