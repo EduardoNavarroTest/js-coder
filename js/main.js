@@ -1,8 +1,6 @@
 /**
  * PENDIENTES
  * Estilizar vista rápida
- * Agregar alert para el finalizado (A FUTURO ENVIARÁ A OTRA PÁGINA --- DONDE SE COLOCAN LOS DATOS DEL USUARIO)
- * Arreglar página de motos
  *  
  */
 
@@ -119,7 +117,11 @@ function crearCardsVehiculos(vehiculo) {
                 <p>Este vehículo puede ser tuyo los días que desees, puedes llevarlo por la suma de: ${vehiculo.precio}
                  USD por día</p>
                 <p class="text-center">${vehiculo.descripcion}</p>
-                <button class="btn btn-primary reservar-btn" data-id="${vehiculo.id}">Reservar Ahora</button>
+                <div class="row">
+                    <div class="col-sm-12 equal-width-btns">
+                        <button class="btn btn-primary reservar-btn" data-id="${vehiculo.id}">Reservar Ahora</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -141,15 +143,29 @@ function toggleCarrito() {
 function mostrarCarrito() {
 
     listarCarrito.innerHTML = '';
-    carrito.vehiculosCarrito.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.id} - ${item.marca} ${item.modelo} ${item.precio} USD x ${item.cantidad}`;
-        listarCarrito.appendChild(li);
+
+
+    carrito.vehiculosCarrito.forEach(vehiculo => {
+        const item = recuperarListadoCarrito(vehiculo);
+        listarCarrito.appendChild(item);
     });
 
     carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
 }
 
+
+function recuperarListadoCarrito(vehiculo) {
+    const item = document.createElement("div");
+    item.classList.add("row", "carritoItem");
+    total = parseInt(vehiculo.cantidad) * parseInt(vehiculo.precio);
+    item.innerHTML = `
+        <div class="col-6">${vehiculo.marca} ${vehiculo.modelo}</div>
+        <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>
+        <div class="col-2">USD ${total}</div>
+        <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito"></i></div>
+    `;
+    return item;
+}
 
 /* Función para recuperar la página actual logueada*/
 function obtenerPaginaActual() {

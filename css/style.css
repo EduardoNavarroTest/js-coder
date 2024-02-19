@@ -98,25 +98,80 @@ footer a:hover {
     cursor: pointer;
     color: white !important;
     display: block;
-
-}
-
-#carritoContainer {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    padding: 10px;
-    background-color: #fafafa;
-    border-radius: 10px;
-    display: none;
 }
 
 #carritoIcono:hover {
     transform: scale(1.01);
-    /* Aumenta el tamaño al 105% */
     transition: transform 0.3s ease;
-    /* Agrega una transición suave */
 }
+
+#carritoContainer {
+    position: fixed;
+    /*background: linear-gradient(45deg, #0037eb, #32e60e); /* Cambia los colores según tu preferencia */
+    top: 10%;
+    right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    max-width: 70%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+
+    /* Media query para dispositivos móviles */
+    @media (max-width: 768px) {
+        width: 95%;
+        max-width: 80%;
+        padding: 8px;
+    }
+}
+
+#listarCarrito {
+    background-color: white;
+
+}
+
+#carritoContainer h4 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.carritoItem {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.carritoItem:last-child {
+    border-bottom: none;
+}
+
+.carritoItem .col-6 {
+    font-weight: bold;
+}
+
+.carritoItem .col-3 {
+    display: flex;
+    align-items: center;
+}
+
+.carritoItem .col-3 i {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.carritoItem .col-2 {
+    font-weight: bold;
+}
+
+.carritoItem .col-1 {
+    text-align: center;
+}
+
+.eliminarItemCarrito {
+    color: red !important;
+    cursor: pointer;
+}
+
 
 .btnAccionCarts {
     display: flex;
@@ -129,4 +184,19 @@ footer a:hover {
     font-size: 100px;
     color: orange !important;
 
+}
+
+/* Botones */
+.equal-width-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.equal-width-btns .btn {
+    flex: 1;
+    margin: 5px;
+}
+
+#btnSearch {
+    margin-left: 5px;
 }

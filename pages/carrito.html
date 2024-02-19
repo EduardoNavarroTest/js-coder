@@ -63,8 +63,12 @@
     <main>
 
         <div class="container">
+
             <div class="jumbotron text-center">
                 <h1 class="display-4">RentiAutos.com</h1>
+                <p class="lead">Tu destino ideal para el alquiler de autos. Ofrecemos una selección variada,
+                    transparencia en tarifas y reservas rápidas. Disfruta de la libertad de la carretera con facilidad y
+                    comodidad.</p>
                 <hr class="my-4">
             </div>
 
@@ -75,12 +79,17 @@
 
 
             <!-- Carrito de Compras -->
-            <div id="carritoContainer" class="border border-primary">
-                <h4>Vista rápida</h4>
-                <ul id="listarCarrito"></ul>
-                <div class="btnAccionCarts">
-                    <button id="btnFinalizarOperacion" type="button" class="btn btn-success">Finalizar carrito</button>
-                    <button id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</button>
+            <div class="container-fluid">
+                <div id="carritoContainer" class="border border-primary">
+                    <div class="row">
+                        <h4>Vista rápida</h4>
+                        <ul id="listarCarrito"></ul>
+                        <div class="btnAccionCarts">
+                            <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
+                                href="./pages/carrito.html">Finalizar carrito</a>
+                            <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
