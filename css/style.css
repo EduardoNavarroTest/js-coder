@@ -50,41 +50,6 @@ footer a:hover {
     padding: 3px;
 }
 
-/*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
-.back-to-top {
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
-    right: 15px;
-    bottom: 15px;
-    z-index: 996;
-    background: #149ddd;
-    width: 40px;
-    height: 40px;
-    border-radius: 50px;
-    transition: all 0.4s;
-}
-
-.back-to-top i {
-    font-size: 28px;
-    color: #fff;
-    line-height: 0;
-}
-
-.back-to-top:hover {
-    background: #2eafec;
-    color: #fff;
-}
-
-.back-to-top.active {
-    visibility: visible;
-    opacity: 1;
-}
-
-/*-----------------------------------------------------------
---------------------------------------------------------------*/
 
 .card-img-top {
     width: 100%;
@@ -92,6 +57,9 @@ footer a:hover {
     object-fit: cover;
 }
 
+.alinearConsultas {
+    display: flex;
+}
 
 #carritoIcono {
     font-size: 30px;
@@ -107,39 +75,49 @@ footer a:hover {
 
 #carritoContainer {
     position: fixed;
-    /*background: linear-gradient(45deg, #0037eb, #32e60e); /* Cambia los colores según tu preferencia */
-    top: 10%;
+    top: 15%;
     right: 10px;
     padding: 10px;
-    border-radius: 10px;
-    margin-top: 20px;
-    max-width: 70%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    width: 40%;
     display: none;
 
     /* Media query para dispositivos móviles */
-    @media (max-width: 768px) {
-        width: 95%;
-        max-width: 80%;
+    @media (max-width: 576px) {
+        top: 15%;
+        width: 75%;
+        padding: 8px;
+        font-size: 14px
+    }
+
+    @media (min-width: 577px) and (max-width: 1400px) {
+        top: 15%;
+        width: 40%;
+        padding: 8px;
+    }
+
+    @media (min-width: 1400px) {
+        top: 10%;
+        width: 40%;
         padding: 8px;
     }
 }
 
 #listarCarrito {
     background-color: white;
-
+    font-size: 14px;
 }
 
 #carritoContainer h4 {
-    margin-bottom: 20px;
-    color: #333;
+    text-align: center;
+    margin: 15px;
+    color: white;
+    font-size: 20px;
 }
 
-.carritoItem {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-}
+/* .carritoItem {
+    border-bottom: 1px solid #ccc; 
+} */
 
 .carritoItem:last-child {
     border-bottom: none;
@@ -152,6 +130,7 @@ footer a:hover {
 .carritoItem .col-3 {
     display: flex;
     align-items: center;
+    font-weight: bold;
 }
 
 .carritoItem .col-3 i {

@@ -1,10 +1,4 @@
-/**
- * PENDIENTES
- * Estilizar vista rápida
- *  
- */
-
-/* Elementos del DOM */
+/* Recuperar elementos del DOM */
 
 const cardsContainer = document.querySelector("#cardsContainer");
 const btnBuscar = document.querySelector("#btnSearch");
@@ -40,10 +34,11 @@ function seleccionarVehiculo() {
             const cantidad = 1;
             carrito.agregarVehiculo(id, cantidad);
             emergentToastify();
-            // toggleCarrito(); Logica pendiente para averiguar si el carrito está abierto
+            recargarCarritoAbierto();
         });
     });
 }
+
 
 // Agregar evento de clic al icono del carrito para mostrar u ocultar los productos
 iconCarrito.addEventListener('click', () => {
@@ -143,8 +138,6 @@ function toggleCarrito() {
 function mostrarCarrito() {
 
     listarCarrito.innerHTML = '';
-
-
     carrito.vehiculosCarrito.forEach(vehiculo => {
         const item = recuperarListadoCarrito(vehiculo);
         listarCarrito.appendChild(item);
@@ -160,11 +153,22 @@ function recuperarListadoCarrito(vehiculo) {
     total = parseInt(vehiculo.cantidad) * parseInt(vehiculo.precio);
     item.innerHTML = `
         <div class="col-6">${vehiculo.marca} ${vehiculo.modelo}</div>
-        <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>
-        <div class="col-2">USD ${total}</div>
-        <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito"></i></div>
+        <div class="col-2">${vehiculo.cantidad}</div>
+        <div class="col-3">USD ${total}</div>
     `;
+    /* [Futura implementación]
+    <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito data-id="${vehiculo.id}"></i></div> 
+    <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>
+     */
     return item;
+}
+
+function recargarCarritoAbierto() {
+    listarCarrito.innerHTML = '';
+    carrito.vehiculosCarrito.forEach(vehiculo => {
+        const item = recuperarListadoCarrito(vehiculo);
+        listarCarrito.appendChild(item);
+    });
 }
 
 /* Función para recuperar la página actual logueada*/

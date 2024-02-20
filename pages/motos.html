@@ -65,18 +65,15 @@
         <div class="container">
             <div class="jumbotron text-center">
                 <h1 class="display-4">RentiAutos.com</h1>
-                <p class="lead">Tu destino ideal para el alquiler de motos. Ofrecemos una selección variada,
+                <p class="lead">Tu destino ideal para la compra de motos de lujo. Ofrecemos una selección variada,
                     transparencia en tarifas y reservas rápidas. Disfruta de la libertad de la carretera con facilidad y
                     comodidad.</p>
                 <hr class="my-4">
                 <div class="row justify-content-center">
                     <div class="col-md-7">
-                        <div class="input-group mb-3">
-                            <input id="inputAutos" type="text" class="form-control" placeholder="Busca tu moto">
-                            <div class="input-group-append">
-                                <button id="btnSearch" class="btn btn-primary" type="button"
-                                    style="margin-left: 5px;">Buscar</button>
-                            </div>
+                        <div class="alinearConsultas">
+                            <input id="inputAutos" type="text" class="form-control" placeholder="Busca tu auto">
+                            <button id="btnSearch" class="btn btn-primary">Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -87,18 +84,22 @@
                 <!-- Aqí se mostrarán las cards automáticamente por JavaScript -->
             </div>
 
+        </div>
+
+        <div class="container">
             <!-- Carrito de Compras -->
-            <div id="carritoContainer" class="border border-primary">
+            <div id="carritoContainer" class="bg-primary">
                 <h4>Vista rápida</h4>
-                <ul id="listarCarrito"></ul>
-                <div class="btnAccionCarts">
+                <div id="listarCarrito" class="row">
+                </div>
+                <div class="btnAccionCarts equal-width-btns">
                     <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
-                        href="../pages/carrito.html">Finalizar carrito</a>
+                        href="./pages/carrito.html">Finalizar carrito</a>
                     <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
                 </div>
             </div>
-
         </div>
+
     </main>
 
     <!-- Footer Boostrap -->

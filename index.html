@@ -67,17 +67,15 @@
 
             <div class="jumbotron text-center">
                 <h1 class="display-4">RentiAutos.com</h1>
-                <p class="lead">Tu destino ideal para el alquiler de autos. Ofrecemos una selección variada,
+                <p class="lead">Tu destino ideal para la compra de autos de lujos. Ofrecemos una selección variada,
                     transparencia en tarifas y reservas rápidas. Disfruta de la libertad de la carretera con facilidad y
                     comodidad.</p>
                 <hr class="my-4">
                 <div class="row justify-content-center">
                     <div class="col-md-7">
-                        <div class="input-group mb-3">
+                        <div class="alinearConsultas">
                             <input id="inputAutos" type="text" class="form-control" placeholder="Busca tu auto">
-                            <div class="input-group-append">
-                                <button id="btnSearch" class="btn btn-primary">Buscar</button>
-                            </div>
+                            <button id="btnSearch" class="btn btn-primary">Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -89,19 +87,21 @@
                 <!-- Aqí se mostrarán las cards automáticamente por JavaScript -->
             </div>
 
+
+        </div>
+
+        <div class="container">
             <!-- Carrito de Compras -->
             <div id="carritoContainer" class="bg-primary">
                 <h4>Vista rápida</h4>
                 <div id="listarCarrito" class="row">
                 </div>
-                <h4>Total a pagar: $0</h4>
-                <div class="btnAccionCarts">
+                <div class="btnAccionCarts equal-width-btns">
                     <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
                         href="./pages/carrito.html">Finalizar carrito</a>
                     <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
                 </div>
             </div>
-
         </div>
 
     </main>

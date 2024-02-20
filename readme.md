@@ -1,7 +1,7 @@
-# Proyecto de Preentrega #2
+# Proyecto de Preentrega #3
 
 Hola Maxi, saludos.
-Este es mi proyecto de preentrega #2, en el que he desarrollado varias clases en JavaScript para gestionar un sistema de renta de vehículos de lujo. 
+Este es mi proyecto de preentrega #3, en el que he desarrollado varias clases y archivos en JavaScript para gestionar un sistema de venta de vehículos de lujo. 
 A continuación, describo brevemente cada uno de los archivos y las funcionalidades principales del programa.
 
 ## Archivos .js
@@ -20,21 +20,29 @@ Aunque actualmente no se utiliza en el programa principal, he creado la clase `U
 
 ### 4. Archivo principal (main.js)
 
-En este archivo, se encuentran las funciones principales que se ejecutarán. Además, he reemplazado el evento `onClick` del botón en el HTML por un `addEventListener` según tu sugerencia.
+En este archivo, se encuentran las funciones principales que se ejecutarán.
+Se encuentran funcionalidades para recuperar los elementos del DOM, así como los diferentes eventos.
+
 
 ## Estructura del proyecto
 
 - **index.html**: Página principal que incluye el botón y otros elementos relacionados con la interfaz de usuario.
+- **motos.html**: Página secundaria que incluye el botón y otros elementos relacionados con la interfaz de usuario.
+- **carrito.html**: Página donde estará el carrito de compras (se está desarrollando para futuras implementaciones).
 - **main.js**: Archivo principal que contiene las funciones ejecutadas principalmente.
-- **Vehiculo.js**: Clase para representar vehículos.
-- **Carrito.js**: Clase para gestionar el carrito de compras.
-- **Usuario.js**: Clase para representar usuarios (preparada para futuras implementaciones).
+- **vehiculo.js**: Clase para representar vehículos.
+- **carrito.js**: Clase para gestionar el carrito de compras.
+- **usuario.js**: Clase para representar usuarios (preparada para futuras implementaciones).
+- **sweetalert.js**: Libreria para estilizar el proyecto.
+- **toastify.js**: Libreria para estilizar el proyecto.
+
 
 
 ## Instrucciones de ejecución
 
 1. Abre el archivo `index.html` en tu navegador web.
-2. Click en el botón `Buscar disponibilidad` e interactuar con los diferentes prompt y alert que saltarán en pantalla.
+2. Digitar el nombre de un auto en el cuadro de texto `Busca tu auto`, luego dar click en el botón `Buscar` o simplemente presionar la tecla `Enter`. Esto retornará los resultados que coincidan con la búsqueda
+3. Al dar click en el botón `Reservar Ahora` agregará los elementos al carrito de compras (localStorage). Este listado se podrá observar desde el ícono del carrito que se encuentra en el navbar del header
 
 ## Comentarios y sugerencias
 
