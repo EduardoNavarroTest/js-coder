@@ -54,17 +54,6 @@ class Carrito {
         localStorage.removeItem("vehiculos");
     }
 
-    /** Local Storage */
-
-    guardarLS() {
-        localStorage.setItem("vehiculos", JSON.stringify(this.vehiculosCarrito));
-    }
-
-    recuperarLS() {
-        const vehiculosLS = localStorage.getItem("vehiculos");
-        return JSON.parse(vehiculosLS) || [];
-    }
-
     existeVehiculoBaseDatos(id) {
         return vehiculos.find(vehiculo => vehiculo.id === id);
     }
@@ -73,6 +62,15 @@ class Carrito {
         return this.vehiculosCarrito.some(vehiculo => vehiculo.id === id);
     }
 
+    /** Local Storage */
+    guardarLS() {
+        localStorage.setItem("vehiculos", JSON.stringify(this.vehiculosCarrito));
+    }
+
+    recuperarLS() {
+        const vehiculosLS = localStorage.getItem("vehiculos");
+        return JSON.parse(vehiculosLS) || [];
+    }
 
 
 }

@@ -1,5 +1,5 @@
 /* Función para simular timer, recibie tiempo en milisegundos */
-function intervalAlert(time) {
+function alertWaitSweet(time) {
     let timerInterval;
     Swal.fire({
         title: "Espere...",

@@ -15,7 +15,6 @@ const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
 
 document.addEventListener("DOMContentLoaded", () => {
     mostrarVehiculosDisponibles(); //Cargar las cards de los vehiculos dependiendo de la página actual, a saber, Autos o Motos
-    seleccionarVehiculo();
 });
 
 btnBuscar.addEventListener("click", mostrarVehiculosDisponibles);
@@ -29,19 +28,19 @@ inputVehiculos.addEventListener("keyup", function (event) {
 function seleccionarVehiculo() {
     const btnReservar = document.querySelectorAll(".reservar-btn");
     btnReservar.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener("click", () => {
             const id = button.dataset.id;
             const cantidad = 1;
             carrito.agregarVehiculo(id, cantidad);
             emergentToastify();
-            recargarCarritoAbierto();
+            recargarCarrito();
         });
     });
 }
 
 
 // Agregar evento de clic al icono del carrito para mostrar u ocultar los productos
-iconCarrito.addEventListener('click', () => {
+iconCarrito.addEventListener("click", () => {
     toggleCarrito();
 });
 
@@ -69,10 +68,13 @@ function mostrarVehiculosDisponibles() {
     });
 
     cardsVehiculos(cochesFiltrados);
+
+    // Volver a asignar eventos a los botones "Reservar Ahora" después de filtrar
+    seleccionarVehiculo();
 }
 
 function cardsVehiculos(vehiculosFiltrados) {
-    intervalAlert(250);
+    alertWaitSweet(250);
     cardsContainer.innerHTML = "";
 
     if (vehiculosFiltrados.length > 0) {
@@ -136,13 +138,7 @@ function toggleCarrito() {
 
 
 function mostrarCarrito() {
-
-    listarCarrito.innerHTML = '';
-    carrito.vehiculosCarrito.forEach(vehiculo => {
-        const item = recuperarListadoCarrito(vehiculo);
-        listarCarrito.appendChild(item);
-    });
-
+    recargarCarrito();
     carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
 }
 
@@ -163,7 +159,7 @@ function recuperarListadoCarrito(vehiculo) {
     return item;
 }
 
-function recargarCarritoAbierto() {
+function recargarCarrito() {
     listarCarrito.innerHTML = '';
     carrito.vehiculosCarrito.forEach(vehiculo => {
         const item = recuperarListadoCarrito(vehiculo);
