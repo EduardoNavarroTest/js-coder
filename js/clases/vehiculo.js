@@ -8,47 +8,34 @@ class Vehiculo {
         this.color = color;
         this.anio = anio;
         this.descripcion = descripcion;
-        this.precio = precio; //Valor en USD por día
+        this.precio = precio; //Valor en USD
         this.imagen = imagen;
         this.disponible = true;
     }
 
     /* Habilita o deshabilita la disponibilidad del vehículo de acuerdo al parámetro recibido */
     modificarDisponibilidad = (disponible) => this.disponible = disponible;
-    
+
 }
 
 /* Variables Globales */
 const vehiculos = [];
 
-/* Función con los datos iniciales que se utilizarán para crear los objetos (Simulación de la base de datos de autos y motos) */
-function crearObjetoVehiculo() {
+/* Consumir API para alimentar la "Base de Datos de Vehículos" */
+async  function crearVehiculo() {
+    // fetch('./js/vehiculos.json')
+    //     .then(respuesta => respuesta.json())
+    //     .then(data => {
+    //         for (const item of data) {
+    //             const objVehiculo = new Vehiculo(item.id, item.tipo, item.marca, item.modelo, item.color, item.anio, item.descripcion, item.precio, item.imagen)
+    //             vehiculos.push(objVehiculo);
+    //         }
+    //     })
 
-    /*CARROS*/
-    crearVehiculo(1, "Auto", "Ford", "Mustang", "Negro", "2020", "Diseño y calidad", 100, "./img/mustang.png");
-    crearVehiculo(2, "Auto", "Mercedes", "Benz", "Blanco", "2024", "Elegancia y estilo", 200, "./img/mercedes-benz.png");
-    crearVehiculo(3, "Auto", "BMW", "M8 GTR", "Blanco", "2023", "Seguridad al instante", 150, "./img/BMW-M8.avif");
-    crearVehiculo(4, "Auto", "Chevrolet", "Camaro", "Blanco", "2021", "Diseño y calidad", 300, "./img/camaro.avif");
-    crearVehiculo(5, "Auto", "Ferrari", "488", "Blanco", "2019", "Elegancia y estilo", 270, "./img/ferrari.png");
-    crearVehiculo(6, "Auto", "Tesla", "S", "Blanco", "2010", "Eficiencia de combustible y la confiabilidad", 95, "./img/tesla.png");
-    crearVehiculo(7, "Auto", "Lamborghini", "Veneno", "Blanco", "2024", "Seguridad al instante", 125, "./img/lambo.jpg");
-    crearVehiculo(8, "Auto", "Buggati", "Veyron", "Blanco", "2023", "Eficiencia de combustible y la confiabilidad", 133, "./img/buggati.avif");
-    crearVehiculo(9, "Auto", "Mclaren", "650S", "Blanco", "2022", "Elegancia y estilo", 175, "./img/mclaren.avif");
-
-
-    /*MOTOS*/
-    crearVehiculo(10, "Moto", "Yamaha", "R6", "Negro", "2024", "Rapidez al instante", 75, "../img/Yamaha-R6.jpg");
-    crearVehiculo(11, "Moto", "Kawasaki", "Ninja H2R", "Gris", "2019", "Confort y elegancia", 95, "../img/kawa-ninja.jpg");
-    crearVehiculo(12, "Moto", "Ducati", "Scrambler ", "Negro", "2025", "Diseño y calidad", 125, "../img/ducati.jpg");
-    crearVehiculo(13, "Moto", "Yamaha", "MT 09", "Negro", "2020", "Eficiencia de combustible", 100, "../img/Yamaha-mt09.png");
-    crearVehiculo(14, "Moto", "Yamaha", "R1", "Azul", "2017", "Rapidez al instante", 135, "../img/Yamaha-R1.png");
-    crearVehiculo(15, "Moto", "Yamaha", "MT 15", "Negro", "2020", "Diseño y calidad", 95, "../img/mt-15.png");
+        const respuesta = await fetch('./js/vehiculos.json');
+        const data = await respuesta.json();
+        for (const item of data) {
+            const objVehiculo = new Vehiculo(item.id, item.tipo, item.marca, item.modelo, item.color, item.anio, item.descripcion, item.precio, item.imagen)
+            vehiculos.push(objVehiculo);
+        }
 }
-
-/* Función que por parámetros recibe los datos de los vehículos para luego instanciar los objetos y agregarlos cada uno a un array */
-function crearVehiculo(id, tipo, marca, modelo, color, anio, descripcion, precio, imagen) {
-    const objVehiculo = new Vehiculo(id, tipo, marca, modelo, color, anio, descripcion, precio, imagen);
-    vehiculos.push(objVehiculo);
-}
-
-crearObjetoVehiculo();
