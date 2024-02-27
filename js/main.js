@@ -1,3 +1,19 @@
+/**
+ * PENDIENTES
+ * Recuperar elementos por API [OK - Falta que carguen antes que la página]
+ * Las cards tendrán dos botones, el de Comprar y el de ver Detalle
+ * Al comprar o al ver detalles reemplazar la funcionalidad actual por onClick
+ * Crear página detalle producto
+ * Crear página carrito / finalizar (si el usuario existe, se recuperarán los datos digitados)
+ * Migrar la ventana emergente a la propia página de carrito
+ * Ordenar por nombre, mayor o menor precio
+ * Colocar un número <span> al icono del carrito que se vaya subiendo dependiendo de la longitud del array
+ * Agregar Total a pagar en la página del carrito 
+ * Hacer funcional eliminarItemCarrito
+ * 
+ */
+
+
 /* Recuperar elementos del DOM */
 
 const cardsContainer = document.querySelector("#cardsContainer");
@@ -8,6 +24,8 @@ const iconCarrito = document.querySelector("#carritoIcono");
 const carritoContainer = document.querySelector("#carritoContainer");
 const btnFinalizarCarrito = document.querySelector("#btnFinalizarOperacion");
 const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
+
+
 
 
 
@@ -95,7 +113,7 @@ function cardsVehiculos(vehiculosFiltrados) {
 }
 
 
-function alertMensaje(tipoAlerta, mensaje) {
+const alertMensaje = (tipoAlerta, mensaje) => {
     return `
     <div class="alert alert-${tipoAlerta}" role="alert">
         ${mensaje}
@@ -116,7 +134,7 @@ function crearCardsVehiculos(vehiculo) {
                 <p class="text-center">${vehiculo.descripcion}</p>
                 <div class="row">
                     <div class="col-sm-12 equal-width-btns">
-                        <button class="btn btn-primary reservar-btn" data-id="${vehiculo.id}">Reservar Ahora</button>
+                        <button class="btn btn-primary reservar-btn" onclick="agregarItemCarrito(${vehiculo.id}, 1);">Reservar Ahora</button>
                     </div>
                 </div>
             </div>
@@ -128,20 +146,27 @@ function crearCardsVehiculos(vehiculo) {
 }
 
 
-function vaciarCarrito() {
-    carrito.vaciarCarrito();
+const vaciarCarrito = () => {
+    carrito.vaciarCarrito
+};
+
+const agregarItemCarrito = (id, cantidad) => {
+    carrito.agregarItemCarrito(id, cantidad);
+
 }
 
-function toggleCarrito() {
+const toggleCarrito = () => {
     carritoContainer.style.display == "block" ? carritoContainer.style.display = "none" : mostrarCarrito();
 }
 
-
-function mostrarCarrito() {
+const mostrarCarrito = () => {
     recargarCarrito();
     carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
 }
 
+const eliminarItemCarrito = (id) => {
+    alert("Producto a borrar " + id);
+}
 
 function recuperarListadoCarrito(vehiculo) {
     const item = document.createElement("div");
@@ -149,13 +174,10 @@ function recuperarListadoCarrito(vehiculo) {
     total = parseInt(vehiculo.cantidad) * parseInt(vehiculo.precio);
     item.innerHTML = `
         <div class="col-6">${vehiculo.marca} ${vehiculo.modelo}</div>
-        <div class="col-2">${vehiculo.cantidad}</div>
-        <div class="col-3">USD ${total}</div>
+        <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>
+        <div class="col-2">USD ${total}</div>
+        <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito" onclick="eliminarItemCarrito(${vehiculo.id});"></i></div> 
     `;
-    /* [Futura implementación]
-    <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito data-id="${vehiculo.id}"></i></div> 
-    <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>
-     */
     return item;
 }
 

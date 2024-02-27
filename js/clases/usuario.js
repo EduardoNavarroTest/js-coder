@@ -12,8 +12,7 @@ class Usuario {
         this.activo = false;
     }
 
-    activarUsuario = () =>
-        this.activo = true;
+    activarUsuario = () => this.activo = true;
 
     obtenerInformacion() {
         console.log(`ID: ${this.id}, Nombre: ${this.nombre} ${this.apellido}, Correo: ${this.correo}, Edad: ${this.edad}, Activo: ${this.activo ? 'Sí' : 'No'}`);

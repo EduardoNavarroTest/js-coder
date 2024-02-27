@@ -1,0 +1,167 @@
+[
+    {
+        "id": 1,
+        "tipo": "Auto",
+        "marca": "Ford",
+        "modelo": "Mustang",
+        "color": "Negro",
+        "anio": "2020",
+        "descripcion": "Diseño y calidad",
+        "precio": 100,
+        "imagen": "./img/mustang.png"
+    },
+    {
+        "id": 2,
+        "tipo": "Auto",
+        "marca": "Mercedes",
+        "modelo": "Benz",
+        "color": "Blanco",
+        "anio": "2024",
+        "descripcion": "Elegancia y estilo",
+        "precio": 200,
+        "imagen": "./img/mercedes-benz.png"
+    },
+    {
+        "id": 3,
+        "tipo": "Auto",
+        "marca": "BMW",
+        "modelo": "M8 GTR",
+        "color": "Blanco",
+        "anio": "2023",
+        "descripcion": "Seguridad al instante",
+        "precio": 150,
+        "imagen": "./img/BMW-M8.avif"
+    },
+    {
+        "id": 4,
+        "tipo": "Auto",
+        "marca": "Chevrolet",
+        "modelo": "Camaro",
+        "color": "Blanco",
+        "anio": "2021",
+        "descripcion": "Diseño y calidad",
+        "precio": 300,
+        "imagen": "./img/camaro.avif"
+    },
+    {
+        "id": 5,
+        "tipo": "Auto",
+        "marca": "Ferrari",
+        "modelo": "488",
+        "color": "Blanco",
+        "anio": "2019",
+        "descripcion": "Elegancia y estilo",
+        "precio": 270,
+        "imagen": "./img/ferrari.png"
+    },
+    {
+        "id": 6,
+        "tipo": "Auto",
+        "marca": "Tesla",
+        "modelo": "S",
+        "color": "Blanco",
+        "anio": "2010",
+        "descripcion": "Eficiencia de combustible y la confiabilidad",
+        "precio": 95,
+        "imagen": "./img/tesla.png"
+    },
+    {
+        "id": 7,
+        "tipo": "Auto",
+        "marca": "Lamborghini",
+        "modelo": "Veneno",
+        "color": "Blanco",
+        "anio": "2024",
+        "descripcion": "Seguridad al instante",
+        "precio": 125,
+        "imagen": "./img/lambo.jpg"
+    },
+    {
+        "id": 8,
+        "tipo": "Auto",
+        "marca": "Buggati",
+        "modelo": "Veyron",
+        "color": "Blanco",
+        "anio": "2023",
+        "descripcion": "Eficiencia de combustible y la confiabilidad",
+        "precio": 133,
+        "imagen": "./img/buggati.avif"
+    },
+    {
+        "id": 9,
+        "tipo": "Auto",
+        "marca": "Mclaren",
+        "modelo": "650S",
+        "color": "Blanco",
+        "anio": "2022",
+        "descripcion": "Elegancia y estilo",
+        "precio": 175,
+        "imagen": "./img/mclaren.avif"
+    },
+    {
+        "id": 10,
+        "tipo": "Moto",
+        "marca": "Yamaha",
+        "modelo": "R6",
+        "color": "Negro",
+        "anio": "2024",
+        "descripcion": "Rapidez al instante",
+        "precio": 75,
+        "imagen": "../img/Yamaha-R6.jpg"
+    },
+    {
+        "id": 11,
+        "tipo": "Moto",
+        "marca": "Kawasaki",
+        "modelo": "Ninja H2R",
+        "color": "Gris",
+        "anio": "2019",
+        "descripcion": "Confort y elegancia",
+        "precio": 95,
+        "imagen": "../img/kawa-ninja.jpg"
+    },
+    {
+        "id": 12,
+        "tipo": "Moto",
+        "marca": "Ducati",
+        "modelo": "Scrambler ",
+        "color": "Negro",
+        "anio": "2025",
+        "descripcion": "Diseño y calidad",
+        "precio": 125,
+        "imagen": "../img/ducati.jpg"
+    },
+    {
+        "id": 13,
+        "tipo": "Moto",
+        "marca": "Yamaha",
+        "modelo": "MT 09",
+        "color": "Negro",
+        "anio": "2020",
+        "descripcion": "Eficiencia de combustible",
+        "precio": 100,
+        "imagen": "../img/Yamaha-mt09.png"
+    },
+    {
+        "id": 14,
+        "tipo": "Moto",
+        "marca": "Yamaha",
+        "modelo": "R1",
+        "color": "Azul",
+        "anio": "2017",
+        "descripcion": "Rapidez al instante",
+        "precio": 135,
+        "imagen": "../img/Yamaha-R1.png"
+    },
+    {
+        "id": 15,
+        "tipo": "Moto",
+        "marca": "Yamaha",
+        "modelo": "MT 15",
+        "color": "Negro",
+        "anio": "2020",
+        "descripcion": "Diseño y calidad",
+        "precio": 95,
+        "imagen": "../img/mt-15.png"
+    }
+]
