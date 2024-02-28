@@ -25,19 +25,6 @@ inputVehiculos.addEventListener("keyup", function (event) {
     }
 });
 
-function seleccionarVehiculo() {
-    const btnReservar = document.querySelectorAll(".reservar-btn");
-    btnReservar.forEach(button => {
-        button.addEventListener("click", () => {
-            const id = button.dataset.id;
-            const cantidad = 1;
-            carrito.agregarVehiculo(id, cantidad);
-            emergentToastify();
-            recargarCarrito();
-        });
-    });
-}
-
 
 // Agregar evento de clic al icono del carrito para mostrar u ocultar los productos
 iconCarrito.addEventListener("click", () => {
@@ -56,7 +43,6 @@ const carrito = new Carrito();
 
 
 /* Funciones */
-
 function mostrarVehiculosDisponibles() {
     const tipoVehiculo = obtenerPaginaActual()
     const cochesFiltrados = vehiculos.filter(vehiculo => {
@@ -66,14 +52,10 @@ function mostrarVehiculosDisponibles() {
             && vehiculo.disponible === true
             && nombre.toLowerCase().includes(inputVehiculos.value.toLowerCase());
     });
-
     cardsVehiculos(cochesFiltrados);
-
-    // Volver a asignar eventos a los botones "Reservar Ahora" después de filtrar
-    seleccionarVehiculo();
 }
 
-function cardsVehiculos(vehiculosFiltrados) {
+const cardsVehiculos = (vehiculosFiltrados) => {
     alertWaitSweet(250);
     cardsContainer.innerHTML = "";
 
@@ -94,8 +76,7 @@ function cardsVehiculos(vehiculosFiltrados) {
     }
 }
 
-
-function alertMensaje(tipoAlerta, mensaje) {
+const alertMensaje = (tipoAlerta, mensaje) => {
     return `
     <div class="alert alert-${tipoAlerta}" role="alert">
         ${mensaje}
@@ -103,20 +84,22 @@ function alertMensaje(tipoAlerta, mensaje) {
     `;
 }
 
-function crearCardsVehiculos(vehiculo) {
+const crearCardsVehiculos = (vehiculo) => {
     const card = document.createElement("div");
+    const pagina = obtenerPaginaActual();
+    const ref = pagina == "Auto" ? "./pages/detalle.html" : "../pages/detalle.html";
     card.innerHTML = `
     <div class="col mb-4">
         <div class="card h-100">
             <img src="${vehiculo.imagen}" class="card-img-top" alt="${vehiculo.marca}">
             <div class="card-body">
                 <h5 class="card-title text-center">${vehiculo.marca} ${vehiculo.modelo}</h5>
-                <p>Este vehículo puede ser tuyo los días que desees, puedes llevarlo por la suma de: ${vehiculo.precio}
-                 USD por día</p>
+                <p>Este vehículo puede ser tuyo por la módica suma de ${vehiculo.precio} USD</p>
                 <p class="text-center">${vehiculo.descripcion}</p>
                 <div class="row">
                     <div class="col-sm-12 equal-width-btns">
-                        <button class="btn btn-primary reservar-btn" data-id="${vehiculo.id}">Reservar Ahora</button>
+                        <a class="btn btn-primary reservar-btn" onclick="addItemCarrito(${vehiculo.id}, 1);">Reservar</a>
+                        <a href="${ref}" class="btn btn-primary detalle-btn" onclick="verDetalleItem(${vehiculo.id});">Detalle</a>
                     </div>
                 </div>
             </div>
@@ -128,38 +111,9 @@ function crearCardsVehiculos(vehiculo) {
 }
 
 
-function vaciarCarrito() {
-    carrito.vaciarCarrito();
-}
+/* Funciones relacionadas al carrito de compra */
 
-function toggleCarrito() {
-    carritoContainer.style.display == "block" ? carritoContainer.style.display = "none" : mostrarCarrito();
-}
-
-
-function mostrarCarrito() {
-    recargarCarrito();
-    carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
-}
-
-
-function recuperarListadoCarrito(vehiculo) {
-    const item = document.createElement("div");
-    item.classList.add("row", "carritoItem");
-    total = parseInt(vehiculo.cantidad) * parseInt(vehiculo.precio);
-    item.innerHTML = `
-        <div class="col-6">${vehiculo.marca} ${vehiculo.modelo}</div>
-        <div class="col-2">${vehiculo.cantidad}</div>
-        <div class="col-3">USD ${total}</div>
-    `;
-    /* [Futura implementación]
-    <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito data-id="${vehiculo.id}"></i></div> 
-    <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>
-     */
-    return item;
-}
-
-function recargarCarrito() {
+const recargarCarrito = () => {
     listarCarrito.innerHTML = '';
     carrito.vehiculosCarrito.forEach(vehiculo => {
         const item = recuperarListadoCarrito(vehiculo);
@@ -167,13 +121,51 @@ function recargarCarrito() {
     });
 }
 
-/* Función para recuperar la página actual logueada*/
-function obtenerPaginaActual() {
-    const urlActual = window.location.href;
+const recuperarListadoCarrito = (vehiculo) => {
+    const item = document.createElement("div");
+    item.classList.add("row", "carritoItem");
+    total = parseInt(vehiculo.cantidad) * parseInt(vehiculo.precio);
+    item.innerHTML = `
+        <div class="col-6">${vehiculo.marca} ${vehiculo.modelo}</div>
+        <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>    
+        <div class="col-2">USD ${total}</div>
+        <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito" onclick="eliminarItemCarrito(${vehiculo.id});"></i></div> 
+    `;
+    return item;
 
+}
+
+const addItemCarrito = (id, cantidad) => {
+    carrito.agregarVehiculo(id, cantidad);
+    emergentToastify();
+    recargarCarrito();
+}
+
+const eliminarItemCarrito = (id) => {
+    carrito.eliminarVehiculo(id)
+    recargarCarrito();
+}
+
+const vaciarCarrito = () => {
+    carrito.vaciarCarrito();
+}
+
+const toggleCarrito = () => {
+    carritoContainer.style.display == "block" ? carritoContainer.style.display = "none" : mostrarCarrito();
+}
+
+
+const mostrarCarrito = () => {
+    recargarCarrito();
+    carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
+}
+
+
+/* Función para recuperar la página actual logueada*/
+const obtenerPaginaActual = () => {
+    const urlActual = window.location.href;
     if (urlActual.includes("motos.html")) {
         return "Moto";
     }
-
     return "Auto";
 }

@@ -16,7 +16,7 @@ class Carrito {
                 vehiculo.cantidad = cantidad;
                 this.vehiculosCarrito.push(vehiculo);
                 console.log(`Vehículo con id ${vehiculo.id} agregado con éxito`);
-                this.guardarLS(vehiculo.id, vehiculo.cantidad)
+                this.guardarLS()
 
             } else {
                 console.log(`Vehículo con id ${idVehiculo} NO existe en base de datos`);
@@ -37,7 +37,7 @@ class Carrito {
         const vehiculo = this.vehiculosCarrito.find(item => item.id === idVehiculo);
         vehiculo.cantidad += cantidad;
         console.log(`Vehículo con id ${vehiculo.id} actualizado con éxito`);
-        this.guardarLS(vehiculo.id, vehiculo.cantidad);
+        this.guardarLS();
     }
 
     listarCarrito() {
@@ -52,6 +52,13 @@ class Carrito {
         this.vehiculosCarrito = [];
         this.total = 0;
         localStorage.removeItem("vehiculos");
+    }
+
+    eliminarVehiculo(id) {
+        const newCarrito = this.vehiculosCarrito.filter(item => item.id != id)
+        this.vehiculosCarrito = newCarrito;
+        console.log(`Vehículo con id ${id} eliminado del carrito de compras`)
+        this.guardarLS();
     }
 
     existeVehiculoBaseDatos(id) {
