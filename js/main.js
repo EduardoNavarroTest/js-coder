@@ -10,7 +10,6 @@ const btnFinalizarCarrito = document.querySelector("#btnFinalizarOperacion");
 const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
 
 
-
 /* Eventos */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,6 +65,10 @@ const cardsVehiculos = (vehiculosFiltrados) => {
 
         vehiculosFiltrados.forEach(vehiculo => {
             const card = crearCardsVehiculos(vehiculo);
+
+
+
+            
             cardStyleBoostrap.appendChild(card);
         });
 
@@ -88,6 +91,7 @@ const crearCardsVehiculos = (vehiculo) => {
     const card = document.createElement("div");
     const pagina = obtenerPaginaActual();
     const ref = pagina == "Auto" ? "./pages/detalle.html" : "../pages/detalle.html";
+    
     card.innerHTML = `
     <div class="col mb-4">
         <div class="card h-100">
@@ -127,7 +131,10 @@ const recuperarListadoCarrito = (vehiculo) => {
     total = parseInt(vehiculo.cantidad) * parseInt(vehiculo.precio);
     item.innerHTML = `
         <div class="col-6">${vehiculo.marca} ${vehiculo.modelo}</div>
-        <div class="col-3"><i class="bi bi-dash-lg"></i> ${vehiculo.cantidad} <i class="bi bi-plus-lg"></i></div>    
+        <div class="col-3">
+        <i class="bi bi-dash-lg" onclick="addItemCarrito(${vehiculo.id}, -1);"></i> ${vehiculo.cantidad} 
+        <i class="bi bi-plus-lg" onclick="addItemCarrito(${vehiculo.id}, 1);"></i>
+        </div>    
         <div class="col-2">USD ${total}</div>
         <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito" onclick="eliminarItemCarrito(${vehiculo.id});"></i></div> 
     `;
@@ -137,6 +144,13 @@ const recuperarListadoCarrito = (vehiculo) => {
 
 const addItemCarrito = (id, cantidad) => {
     carrito.agregarVehiculo(id, cantidad);
+    const cantidadTotal = carrito.vehiculosCarrito.find(item => item.id == id).cantidad;
+
+    //No permitir valores negativos
+    if (cantidadTotal <= 0) {
+        eliminarItemCarrito(id);
+    }
+
     emergentToastify();
     recargarCarrito();
 }
