@@ -79,17 +79,14 @@
 
 
             <!-- Carrito de Compras -->
-            <div class="container-fluid">
-                <div id="carritoContainer" class="border border-primary">
-                    <div class="row">
-                        <h4>Vista rápida</h4>
-                        <ul id="listarCarrito"></ul>
-                        <div class="btnAccionCarts">
-                            <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
-                                href="./pages/carrito.html">Finalizar carrito</a>
-                            <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
-                        </div>
-                    </div>
+            <div id="carritoContainer" class="bg-primary">
+                <h4>Vista rápida</h4>
+                <div id="listarCarrito" class="row">
+                </div>
+                <div class="btnAccionCarts equal-width-btns">
+                    <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
+                        href="carrito.html">Finalizar carrito</a>
+                    <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
                 </div>
             </div>
 
@@ -148,10 +145,9 @@
     <script src="../js/clases/vehiculo.js"></script>
     <script src="../js/clases/carrito.js"></script>
     <script src="../js/clases/usuario.js"></script>
-    <script src="../js/main.js"></script>
     <script src="../js/librerias/sweetalert.js"></script>
     <script src="../js/librerias/toastify.js"></script>
-
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

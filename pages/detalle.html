@@ -66,30 +66,44 @@
 
             <div class="jumbotron text-center">
                 <h1 class="display-4">RentiAutos.com</h1>
-                <p class="lead">Tu destino ideal para el alquiler de autos. Ofrecemos una selección variada,
+                <p class="lead">Tu destino ideal para la compra de vehículos de lujo. Ofrecemos una selección variada,
                     transparencia en tarifas y reservas rápidas. Disfruta de la libertad de la carretera con facilidad y
                     comodidad.</p>
                 <hr class="my-4">
             </div>
 
-            <div class="construction">
-                <i class="bi bi-cone-striped"></i>
+            <div class="itemCart">
+                
             </div>
-            <p class="text-warning display-4 text-center">Página en construcción</p>
 
+
+            <div class="row">
+                <!-- Imagen del Producto -->
+                <div class="col-md-6">
+                    <img id ="imgItemCart" src="ruta/de/la/imagen.jpg" class="img-fluid" alt="Imagen del Producto">
+                </div>
+                <!-- Información del Producto -->
+                <div class="col-md-6 mb-4">
+                    <h2 id="cartNameItem">Nombre del Producto</h2>
+                    <p id="cartYearItem"><strong>Año:</strong> 2023</p>
+                    <p id="cartYearItem"><strong>Color:</strong> 2023</p>
+                    <p><strong>Precio:</strong> $99.99</p>
+                    <p><strong>Descripción:</strong> Descripción detallada del producto...</p>
+                    <a id="btnComprarCarrito" class="btn btn-primary">Agregar</a>
+                    <!-- Agrega más detalles del producto aquí si es necesario -->
+                </div>
+
+            </div>
 
             <!-- Carrito de Compras -->
-            <div class="container-fluid">
-                <div id="carritoContainer" class="border border-primary">
-                    <div class="row">
-                        <h4>Vista rápida</h4>
-                        <ul id="listarCarrito"></ul>
-                        <div class="btnAccionCarts">
-                            <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
-                                href="./pages/carrito.html">Finalizar carrito</a>
-                            <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
-                        </div>
-                    </div>
+            <div id="carritoContainer" class="bg-primary">
+                <h4>Vista rápida</h4>
+                <div id="listarCarrito" class="row">
+                </div>
+                <div class="btnAccionCarts equal-width-btns">
+                    <a id="btnFinalizarOperacion" type="button" class="btn btn-success" href="carrito.html">Finalizar
+                        carrito</a>
+                    <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
                 </div>
             </div>
 
@@ -148,9 +162,9 @@
     <script src="../js/clases/vehiculo.js"></script>
     <script src="../js/clases/carrito.js"></script>
     <script src="../js/clases/usuario.js"></script>
-    <script src="../js/main.js"></script>
     <script src="../js/librerias/sweetalert.js"></script>
     <script src="../js/librerias/toastify.js"></script>
+    <script src="../js/main.js"></script>
 
 </body>
 

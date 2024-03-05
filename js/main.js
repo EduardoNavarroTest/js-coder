@@ -1,3 +1,7 @@
+/* Instanciar objetos */
+const carrito = new Carrito();
+const vehiculos = [];
+
 /* Recuperar elementos del DOM */
 
 const cardsContainer = document.querySelector("#cardsContainer");
@@ -9,21 +13,26 @@ const carritoContainer = document.querySelector("#carritoContainer");
 const btnFinalizarCarrito = document.querySelector("#btnFinalizarOperacion");
 const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
 
+// Elementos de la página del carrito
+const cartImg = document.querySelectorAll("#imgItemCart");
 
 /* Eventos */
 
 document.addEventListener("DOMContentLoaded", () => {
-    mostrarVehiculosDisponibles(); //Cargar las cards de los vehiculos dependiendo de la página actual, a saber, Autos o Motos
+    crearVehiculos();
 });
 
-btnBuscar.addEventListener("click", mostrarVehiculosDisponibles);
+if (btnBuscar) {
+    btnBuscar.addEventListener("click", mostrarVehiculosDisponibles);
+}
 
-inputVehiculos.addEventListener("keyup", function (event) {
-    if (event.key == 'Enter') {
-        mostrarVehiculosDisponibles();
-    }
-});
-
+if (inputVehiculos) {
+    inputVehiculos.addEventListener("keyup", function (event) {
+        if (event.key == "Enter") {
+            mostrarVehiculosDisponibles();
+        }
+    });
+}
 
 // Agregar evento de clic al icono del carrito para mostrar u ocultar los productos
 iconCarrito.addEventListener("click", () => {
@@ -31,25 +40,43 @@ iconCarrito.addEventListener("click", () => {
 });
 
 btnEliminarCarrito.addEventListener("click", () => {
-    alertSweetDelete()
+    alertSweetDelete();
     carrito.vaciarCarrito();
     mostrarCarrito();
 });
 
 
-/* Instanciar objetos */
-const carrito = new Carrito();
-
 
 /* Funciones */
+
+/* Consumir API para alimentar la "Base de Datos de Vehículos" */
+function crearVehiculos() {
+    fetch('./js/vehiculos.json')
+        .then(respuesta => respuesta.json())
+        .then(data => {
+            for (const item of data) {
+                const objVehiculo = new Vehiculo(item.id, item.tipo, item.marca, item.modelo, item.color, item.anio, item.descripcion, item.precio, item.imagen)
+                vehiculos.push(objVehiculo);
+            }
+            // Llamar a la función para mostrar los vehículos después de que se hayan cargado completamente
+            mostrarVehiculosDisponibles();
+        });
+}
+ 
+
 function mostrarVehiculosDisponibles() {
-    const tipoVehiculo = obtenerPaginaActual()
-    const cochesFiltrados = vehiculos.filter(vehiculo => {
+    const tipoVehiculo = obtenerPaginaActual();
+    if (tipoVehiculo != "Auto" && tipoVehiculo != "Moto") {
+        return;
+    }
+    const cochesFiltrados = vehiculos.filter((vehiculo) => {
         const { marca, modelo } = vehiculo; //Destructuración del objeto
-        const nombre = marca + " " + modelo;  //Para permitir que el usuario pueda consultar por la marca y/o modelo del vehículo
-        return vehiculo.tipo === tipoVehiculo
-            && vehiculo.disponible === true
-            && nombre.toLowerCase().includes(inputVehiculos.value.toLowerCase());
+        const nombre = marca + " " + modelo; //Para permitir que el usuario pueda consultar por la marca y/o modelo del vehículo
+        return (
+            vehiculo.tipo === tipoVehiculo &&
+            vehiculo.disponible === true &&
+            nombre.toLowerCase().includes(inputVehiculos.value.toLowerCase())
+        );
     });
     cardsVehiculos(cochesFiltrados);
 }
@@ -60,24 +87,28 @@ const cardsVehiculos = (vehiculosFiltrados) => {
 
     if (vehiculosFiltrados.length > 0) {
         const cardStyleBoostrap = document.createElement("div");
-        cardStyleBoostrap.classList.add("row", "row-cols-1", "row-cols-md-2", "row-cols-lg-3", "g-4");
+        cardStyleBoostrap.classList.add(
+            "row",
+            "row-cols-1",
+            "row-cols-md-2",
+            "row-cols-lg-3",
+            "g-4"
+        );
         cardsContainer.appendChild(cardStyleBoostrap);
 
-        vehiculosFiltrados.forEach(vehiculo => {
+        vehiculosFiltrados.forEach((vehiculo) => {
             const card = crearCardsVehiculos(vehiculo);
-
-
-
-            
             cardStyleBoostrap.appendChild(card);
         });
-
     } else {
         const mensajeError = document.createElement("div");
-        mensajeError.innerHTML = alertMensaje("danger", "No se encontraron vehículos con ese nombre");
+        mensajeError.innerHTML = alertMensaje(
+            "danger",
+            "No se encontraron vehículos con ese nombre"
+        );
         cardsContainer.appendChild(mensajeError);
     }
-}
+};
 
 const alertMensaje = (tipoAlerta, mensaje) => {
     return `
@@ -85,13 +116,14 @@ const alertMensaje = (tipoAlerta, mensaje) => {
         ${mensaje}
     </div>
     `;
-}
+};
 
 const crearCardsVehiculos = (vehiculo) => {
     const card = document.createElement("div");
     const pagina = obtenerPaginaActual();
-    const ref = pagina == "Auto" ? "./pages/detalle.html" : "../pages/detalle.html";
-    
+    const ref =
+        pagina == "Auto" ? "./pages/detalle.html" : "../pages/detalle.html";
+
     card.innerHTML = `
     <div class="col mb-4">
         <div class="card h-100">
@@ -102,7 +134,7 @@ const crearCardsVehiculos = (vehiculo) => {
                 <p class="text-center">${vehiculo.descripcion}</p>
                 <div class="row">
                     <div class="col-sm-12 equal-width-btns">
-                        <a class="btn btn-primary reservar-btn" onclick="addItemCarrito(${vehiculo.id}, 1);">Reservar</a>
+                        <a class="btn btn-primary reservar-btn" onclick="addItemCarrito(${vehiculo.id}, 1);">Agregar</a>
                         <a href="${ref}" class="btn btn-primary detalle-btn" onclick="verDetalleItem(${vehiculo.id});">Detalle</a>
                     </div>
                 </div>
@@ -112,18 +144,17 @@ const crearCardsVehiculos = (vehiculo) => {
     `;
 
     return card;
-}
-
+};
 
 /* Funciones relacionadas al carrito de compra */
 
 const recargarCarrito = () => {
-    listarCarrito.innerHTML = '';
-    carrito.vehiculosCarrito.forEach(vehiculo => {
+    listarCarrito.innerHTML = "";
+    carrito.vehiculosCarrito.forEach((vehiculo) => {
         const item = recuperarListadoCarrito(vehiculo);
         listarCarrito.appendChild(item);
     });
-}
+};
 
 const recuperarListadoCarrito = (vehiculo) => {
     const item = document.createElement("div");
@@ -139,12 +170,13 @@ const recuperarListadoCarrito = (vehiculo) => {
         <div class="col-1" title="Eliminar"><i class="bi bi-x-circle eliminarItemCarrito" onclick="eliminarItemCarrito(${vehiculo.id});"></i></div> 
     `;
     return item;
-
-}
+};
 
 const addItemCarrito = (id, cantidad) => {
     carrito.agregarVehiculo(id, cantidad);
-    const cantidadTotal = carrito.vehiculosCarrito.find(item => item.id == id).cantidad;
+    const cantidadTotal = carrito.vehiculosCarrito.find(
+        (item) => item.id == id
+    ).cantidad;
 
     //No permitir valores negativos
     if (cantidadTotal <= 0) {
@@ -153,33 +185,46 @@ const addItemCarrito = (id, cantidad) => {
 
     emergentToastify();
     recargarCarrito();
-}
+};
 
 const eliminarItemCarrito = (id) => {
-    carrito.eliminarVehiculo(id)
+    carrito.eliminarVehiculo(id);
     recargarCarrito();
-}
+};
 
 const vaciarCarrito = () => {
     carrito.vaciarCarrito();
-}
+};
 
 const toggleCarrito = () => {
-    carritoContainer.style.display == "block" ? carritoContainer.style.display = "none" : mostrarCarrito();
-}
-
+    carritoContainer.style.display == "block"
+        ? (carritoContainer.style.display = "none") : mostrarCarrito();
+};
 
 const mostrarCarrito = () => {
     recargarCarrito();
-    carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
+    carritoContainer.style.display =
+        carrito.vehiculosCarrito.length > 0 ? "block" : "none";
+};
+
+const verDetalleItem = (id) => {
+    const itemDetails = vehiculos.find(item => item.id == id);
+    crearCardsVehiculoCarrito
+
 }
 
+const crearCardsVehiculoCarrito = (vehiculo) => {
+
+
+}
 
 /* Función para recuperar la página actual logueada*/
-const obtenerPaginaActual = () => {
+function obtenerPaginaActual() {
     const urlActual = window.location.href;
     if (urlActual.includes("motos.html")) {
         return "Moto";
+    } else if (urlActual.includes("detalle.html")) {
+        return "Otros";
     }
     return "Auto";
 }
