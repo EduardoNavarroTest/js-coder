@@ -24,5 +24,8 @@ En la clase `Carrito` se encuentra relacionado el guardado y recuperación de lo
 ### fetch (Consumo de API)
 En el archivo `main.js` se encuentran las funciones principales para la ejecución del proyecto, además se encuentra el uso de asincronía y promesas, consumiendo un api local `vehiculos.json`
 
-De nuevo muchas gracias por tu guía y enseñanza.
-Saludos
+Tengo a futuro pensado hacer muchas mejoras con todo lo aprendido.
+Sin embargo, lo que hasta ahora he construido, considero que cumple con los requisitos de la cursada.
+
+Valoro siempre tus oportunos comentarios.
+Muchas gracias, saludos.

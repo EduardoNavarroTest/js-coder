@@ -10,10 +10,11 @@ const inputVehiculos = document.querySelector("#inputAutos");
 const listarCarrito = document.querySelector("#listarCarrito");
 const iconCarrito = document.querySelector("#carritoIcono");
 const carritoContainer = document.querySelector("#carritoContainer");
-const btnFinalizarCarrito = document.querySelector("#btnFinalizarOperacion");
 const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
 const btnFinalizarCompra = document.querySelector("#finalizarCompra");
-
+const inputsDatosUsuario = document.querySelectorAll(".form-control");
+const camposObligatoriosUsuario = document.querySelectorAll("input[required], select[required]");
+const totalPagarCarrito = document.querySelector("#totalPagarCarrito");
 
 
 
@@ -21,7 +22,6 @@ const btnFinalizarCompra = document.querySelector("#finalizarCompra");
 document.addEventListener("DOMContentLoaded", () => {
     crearVehiculos();
 });
-
 
 if (btnBuscar) {
     btnBuscar.addEventListener("click", mostrarVehiculosDisponibles);
@@ -47,10 +47,26 @@ btnEliminarCarrito.addEventListener("click", () => {
 });
 
 if (btnFinalizarCompra) {
-    btnFinalizarCompra.addEventListener("click", () => {
-        alertSweetFinalizarCompra();
-        vaciarCarrito();
-        mostrarCarrito();
+    btnFinalizarCompra.addEventListener("click", (e) => {
+
+        // Verificar si todos los campos obligatorios están llenos        
+        let todosLlenos = true;
+
+        camposObligatoriosUsuario.forEach(campo => {
+            if (!campo.value.trim()) {
+                todosLlenos = false;
+                return;
+            }
+        });
+
+        // Si todos los campos obligatorios están llenos, ejecutar el código
+        if (todosLlenos) {
+            e.preventDefault();
+            alertSweetFinalizarCompra();
+            vaciarCarrito(); 
+            mostrarCarrito();    
+            limpiarDatosUsuario();  
+        }
     });
 }
 
@@ -151,11 +167,17 @@ const crearCardsVehiculos = (vehiculo) => {
 /* Funciones relacionadas al carrito de compra */
 
 const recargarCarrito = () => {
+
+    const totalCarrito = carrito.totalPagar();
+    const totalFormateado = Number(totalCarrito).toLocaleString();
+    totalPagarCarrito.innerHTML = `Total a Pagar: ${totalFormateado} USD`
+
     listarCarrito.innerHTML = "";
     carrito.vehiculosCarrito.forEach((vehiculo) => {
         const item = recuperarListadoCarrito(vehiculo);
         listarCarrito.appendChild(item);
     });
+
 };
 
 const recuperarListadoCarrito = (vehiculo) => {
@@ -205,6 +227,15 @@ const mostrarCarrito = () => {
     carritoContainer.style.display = carrito.vehiculosCarrito.length > 0 ? "block" : "none";
 };
 
+const limpiarDatosUsuario = () => {
+    inputsDatosUsuario.forEach(input => {
+        if(input.id == "medio_pago"){
+            input.selectedIndex = 0;
+        }else{
+            input.value = "";
+        }
+    })
+}
 
 /* Función para recuperar la página actual */
 function obtenerPaginaActual() {

@@ -70,61 +70,67 @@
                     <form>
                         <div class="form-group">
                             <label for="id">ID:</label>
-                            <input type="text" class="form-control" id="id" placeholder="Ingresa tu ID">
+                            <input type="text" class="form-control" id="id" placeholder="Ingresa tu ID" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre">
+                                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="apellido">Apellido:</label>
-                                <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido">
+                                <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido"
+                                    required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="telefono">Teléfono:</label>
                                 <input type="tel" class="form-control" id="telefono"
-                                    placeholder="Ingresa tu número de teléfono">
+                                    placeholder="Ingresa tu número de teléfono" required>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo Electrónico:</label>
                                 <input type="email" class="form-control" id="correo"
-                                    placeholder="Ingresa tu correo electrónico">
+                                    placeholder="Ingresa tu correo electrónico" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección:</label>
-                            <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
+                            <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="medio_pago">Medio de Pago:</label>
-                            <select class="form-control" id="medio_pago">
+                            <select class="form-control" id="medio_pago" required>
+                                <option value="">Selecciona un medio de pago</option>
                                 <option>Efectivo</option>
                                 <option>Tarjeta de crédito</option>
                                 <option>Tarjeta de débito</option>
                                 <option>PayPal</option>
                             </select>
                         </div>
-                        <a id="finalizarCompra" class="btn btn-primary">Finalizar compra</a>
+                        <button id="finalizarCompra" class="btn btn-primary" type="submit">Finalizar compra</button>
                     </form>
-                </div>
-            </div>
 
-            <!-- Carrito de Compras -->
-            <div id="carritoContainer" class="bg-primary">
-                <h4>Vista rápida</h4>
-                <div id="listarCarrito" class="row">
-                </div>
-                <div class="btnAccionCarts equal-width-btns">
-                    <a id="btnFinalizarOperacion" type="button" class="btn btn-success" href="carrito.html">Finalizar
-                        carrito</a>
-                    <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
-                </div>
-            </div>
+                    <!-- Carrito de Compras -->
+                    <div id="carritoContainer" class="bg-primary">
+                        <h4 id="totalPagarCarrito" class="decimal-separator">0 USD</h4>
+                        <div id="listarCarrito" class="row">
+                        </div>
+                        <div class="btnAccionCarts equal-width-btns">
+                            <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
+                                href="../pages/carrito.html">Finalizar carrito</a>
+                            <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
+                        </div>
+                    </div>
 
+                </div>
+
+            </div>
         </div>
+        
     </main>
 
     <!-- Footer Boostrap -->

@@ -27,6 +27,7 @@ class Carrito {
     }
 
     totalPagar() {
+        this.total = 0;
         this.vehiculosCarrito.forEach(vehiculo => {
             this.total += vehiculo.precio * vehiculo.cantidad;
         });
