@@ -42,7 +42,7 @@ iconCarrito.addEventListener("click", () => {
 
 btnEliminarCarrito.addEventListener("click", () => {
     alertSweetDelete();
-    carrito.vaciarCarrito();
+    vaciarCarrito();
     mostrarCarrito();
 });
 
