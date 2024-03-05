@@ -15,5 +15,5 @@ class Vehiculo {
 
     /* Habilita o deshabilita la disponibilidad del vehículo de acuerdo al parámetro recibido */
     modificarDisponibilidad = (disponible) => this.disponible = disponible;
-    
+
 }

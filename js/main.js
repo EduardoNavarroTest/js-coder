@@ -15,6 +15,8 @@ const btnEliminarCarrito = document.querySelector("#btnVaciarCarrito");
 const btnFinalizarCompra = document.querySelector("#finalizarCompra");
 
 
+
+
 /* Eventos */
 document.addEventListener("DOMContentLoaded", () => {
     crearVehiculos();
