@@ -8,7 +8,7 @@ class Vehiculo {
         this.color = color;
         this.anio = anio;
         this.descripcion = descripcion;
-        this.precio = precio; //Valor en USD por día
+        this.precio = precio;
         this.imagen = imagen;
         this.disponible = true;
     }

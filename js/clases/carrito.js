@@ -69,7 +69,7 @@ class Carrito {
         return this.vehiculosCarrito.some(vehiculo => vehiculo.id === id);
     }
 
-    /** Local Storage */
+    /** Local Storage **/
     guardarLS() {
         localStorage.setItem("vehiculos", JSON.stringify(this.vehiculosCarrito));
     }
@@ -78,6 +78,5 @@ class Carrito {
         const vehiculosLS = localStorage.getItem("vehiculos");
         return JSON.parse(vehiculosLS) || [];
     }
-
 
 }

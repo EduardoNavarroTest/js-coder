@@ -62,21 +62,55 @@
 
     <main>
 
-        <div class="container">
+        <div class="container user">
 
-            <div class="jumbotron text-center">
-                <h1 class="display-4">RentiAutos.com</h1>
-                <p class="lead">Tu destino ideal para el alquiler de autos. Ofrecemos una selección variada,
-                    transparencia en tarifas y reservas rápidas. Disfruta de la libertad de la carretera con facilidad y
-                    comodidad.</p>
-                <hr class="my-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h2 class="mb-4 text-center">Datos del usuario para envío</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="id">ID:</label>
+                            <input type="text" class="form-control" id="id" placeholder="Ingresa tu ID">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido:</label>
+                                <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" class="form-control" id="telefono"
+                                    placeholder="Ingresa tu número de teléfono">
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo Electrónico:</label>
+                                <input type="email" class="form-control" id="correo"
+                                    placeholder="Ingresa tu correo electrónico">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
+                        </div>
+                        <div class="form-group">
+                            <label for="medio_pago">Medio de Pago:</label>
+                            <select class="form-control" id="medio_pago">
+                                <option>Efectivo</option>
+                                <option>Tarjeta de crédito</option>
+                                <option>Tarjeta de débito</option>
+                                <option>PayPal</option>
+                            </select>
+                        </div>
+                        <a id="finalizarCompra" class="btn btn-primary">Finalizar compra</a>
+                    </form>
+                </div>
             </div>
-
-            <div class="construction">
-                <i class="bi bi-cone-striped"></i>
-            </div>
-            <p class="text-warning display-4 text-center">Página en construcción</p>
-
 
             <!-- Carrito de Compras -->
             <div id="carritoContainer" class="bg-primary">
@@ -84,8 +118,8 @@
                 <div id="listarCarrito" class="row">
                 </div>
                 <div class="btnAccionCarts equal-width-btns">
-                    <a id="btnFinalizarOperacion" type="button" class="btn btn-success"
-                        href="carrito.html">Finalizar carrito</a>
+                    <a id="btnFinalizarOperacion" type="button" class="btn btn-success" href="carrito.html">Finalizar
+                        carrito</a>
                     <a id="btnVaciarCarrito" type="button" class="btn btn-danger">Eliminar carrito</a>
                 </div>
             </div>

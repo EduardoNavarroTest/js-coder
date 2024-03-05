@@ -22,3 +22,11 @@ function alertSweetDelete() {
         icon: "success"
       });
 }
+
+function alertSweetFinalizarCompra() {
+    Swal.fire({
+        title: "OK",
+        text: "Datos del usuario recibidos con éxito. Pronto enviaremos su pedido",
+        icon: "success"
+      });
+}
